@@ -1,9 +1,11 @@
+import 'package:e_sankalp/src/controllers/auth_controller.dart';
 import 'package:e_sankalp/src/view/auth_views/splash_screen.dart';
 import 'package:e_sankalp/src/view/home_view/home_page_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 void main() {
+  Get.put(AuthController());
   runApp(const MyApp());
 }
 

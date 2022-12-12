@@ -11,18 +11,6 @@ class SplashScreens extends StatefulWidget {
 }
 
 class _SplashScreensState extends State<SplashScreens> {
- 
-  @override
-  void initState() {
-    super.initState();
-    nextScreen();
-  }
-
-  nextScreen() async {
-    await Future.delayed(const Duration(seconds: 2));
-    Get.to(() => ChooseLanguageView());
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -31,9 +19,7 @@ class _SplashScreensState extends State<SplashScreens> {
               image: AssetImage("assets/images/background.png"))),
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        body: Center(
-          child: Image.asset("assets/icons/logo.png"),
-        ),
+        body: Center(),
       ),
     );
   }
