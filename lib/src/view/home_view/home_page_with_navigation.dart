@@ -1,10 +1,15 @@
 import 'package:bottom_bar/bottom_bar.dart';
 import 'package:e_sankalp/src/const/app_colors.dart';
+import 'package:e_sankalp/src/view/account_views/my_account_screen.dart';
+import 'package:e_sankalp/src/view/home_view/frequently_question_screen.dart';
 import 'package:e_sankalp/src/view/home_view/home_page_view.dart';
+import 'package:e_sankalp/src/view/home_view/my_booking_screen.dart';
+import 'package:e_sankalp/src/view/home_view/support_help_screen.dart';
 import 'package:flutter/material.dart';
 
 class HomePageWithNavigation extends StatefulWidget {
-  const HomePageWithNavigation({super.key});
+  int index;
+  HomePageWithNavigation({super.key, this.index = 0});
 
   @override
   State<HomePageWithNavigation> createState() => _HomePageWithNavigationState();
@@ -12,11 +17,29 @@ class HomePageWithNavigation extends StatefulWidget {
 
 class _HomePageWithNavigationState extends State<HomePageWithNavigation> {
   int _currentPage = 0;
+  
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      _currentPage = widget.index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: HomePageView(),
+      body: _currentPage == 0
+          ? HomePageView()
+          : _currentPage == 1
+              ? FrequentlyQuestionScreen()
+              : _currentPage == 2
+                  ? MyBookingScreen()
+                  : _currentPage == 3
+                      ? SupportAndHelp()
+                      : _currentPage == 4
+                          ? MyAccountScreen()
+                          : HomePageView(),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
             gradient: LinearGradient(colors: [secondaryColor, primaryColor])),
@@ -51,7 +74,7 @@ class _HomePageWithNavigationState extends State<HomePageWithNavigation> {
                   "assets/icons/9070823_ticket_icon.png",
                   color: _currentPage == 2 ? primaryColor : Colors.white,
                 ),
-                title: Text('Booking'),
+                title: Text('My Booking'),
                 backgroundColorOpacity: 1,
                 activeColor: Colors.white,
                 activeTitleColor: primaryColor,

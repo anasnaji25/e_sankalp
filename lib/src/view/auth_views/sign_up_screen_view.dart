@@ -28,9 +28,29 @@ class _SignUpViewState extends State<SignUpView> {
     DateTime? picked = await showDatePicker(
         context: context,
         initialDate: date,
+        
         initialDatePickerMode: DatePickerMode.day,
         firstDate: DateTime(2015),
-        lastDate: DateTime(2101));
+        lastDate: DateTime(2101),
+        builder: (context, child) {
+           return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: ColorScheme.light(
+              primary: secondaryColor, // <-- SEE HERE
+              onPrimary: Colors.white, // <-- SEE HERE
+              onSurface: Colors.blueAccent, // <-- SEE HERE
+            ),
+            textButtonTheme: TextButtonThemeData(
+              style: TextButton.styleFrom(
+                primary: primaryColor, // button text color
+              ),
+            ),
+          ),
+          child: child!,
+        );
+        },
+        );
+
     if (picked != null)
       setState(() {
         date = picked;
@@ -43,6 +63,23 @@ class _SignUpViewState extends State<SignUpView> {
     TimeOfDay? picked = await showTimePicker(
       context: context,
       initialTime: time,
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: ColorScheme.light(
+              primary: secondaryColor, // <-- SEE HERE
+              onPrimary: Colors.white, // <-- SEE HERE
+              onSurface: primaryColor, // <-- SEE HERE
+            ),
+            textButtonTheme: TextButtonThemeData(
+              style: TextButton.styleFrom(
+                primary: primaryColor, // button text color
+              ),
+            ),
+          ),
+          child: child!,
+        );
+      },
     );
     if (picked != null)
       setState(() {
@@ -392,3 +429,6 @@ Future<void> _showOTPDialouge(BuildContext context) async {
     },
   );
 }
+
+
+

@@ -1,5 +1,8 @@
 import 'package:e_sankalp/src/const/app_colors.dart';
 import 'package:e_sankalp/src/const/app_font.dart';
+import 'package:e_sankalp/src/view/booking_view/booking_view.dart';
+import 'package:e_sankalp/src/view/donation_view/donations_view.dart';
+import 'package:e_sankalp/src/view/home_view/notification_screen.dart';
 import 'package:e_sankalp/src/view/temples_view/temples_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -32,9 +35,14 @@ class _HomePageViewState extends State<HomePageView> {
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 15),
-            child: Icon(
-              Icons.notifications,
-              color: secondaryColor,
+            child: InkWell(
+              onTap: () {
+                Get.to(() => NotificationScreen());
+              },
+              child: Icon(
+                Icons.notifications,
+                color: secondaryColor,
+              ),
             ),
           )
         ],
@@ -224,25 +232,35 @@ class _HomePageViewState extends State<HomePageView> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  SvgPicture.asset("assets/icons/booking_icon.svg"),
-                  Text(
-                    "Booking",
-                    style: primaryFont.copyWith(fontSize: 12),
-                  )
-                ],
+              InkWell(
+                onTap: () {
+                  Get.to(() => BookingView());
+                },
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    SvgPicture.asset("assets/icons/booking_icon.svg"),
+                    Text(
+                      "Booking",
+                      style: primaryFont.copyWith(fontSize: 12),
+                    )
+                  ],
+                ),
               ),
-              Column(
-                children: [
-                  SvgPicture.asset("assets/icons/donations.svg"),
-                  Text(
-                    "Donate",
-                    style: primaryFont.copyWith(fontSize: 12),
-                  )
-                ],
+              InkWell(
+                onTap: (){
+                  Get.to(()=> DonationsView());
+                },
+                child: Column(
+                  children: [
+                    SvgPicture.asset("assets/icons/donations.svg"),
+                    Text(
+                      "Donate",
+                      style: primaryFont.copyWith(fontSize: 12),
+                    )
+                  ],
+                ),
               ),
               InkWell(
                 onTap: () {

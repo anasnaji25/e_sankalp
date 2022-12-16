@@ -62,7 +62,7 @@ class _ChooseLanguageViewState extends State<ChooseLanguageView> {
                       height: 15,
                     ),
                     InkWell(
-                      onTap: () async{
+                      onTap: () async {
                         authController.langIndex(1);
                          await Future.delayed(const Duration(seconds: 1));
                         Get.to(() => LoginView());
@@ -90,7 +90,7 @@ class _ChooseLanguageViewState extends State<ChooseLanguageView> {
                       height: 15,
                     ),
                     InkWell(
-                      onTap: () async{
+                      onTap: () async {
                         authController.langIndex(3);
                          await Future.delayed(const Duration(seconds: 1));
                         Get.to(() => LoginView());
@@ -104,7 +104,7 @@ class _ChooseLanguageViewState extends State<ChooseLanguageView> {
                       height: 15,
                     ),
                     InkWell(
-                      onTap: () async{
+                      onTap: () async {
                         authController.langIndex(4);
                          await Future.delayed(const Duration(seconds: 1));
                         Get.to(() => LoginView());
@@ -118,7 +118,7 @@ class _ChooseLanguageViewState extends State<ChooseLanguageView> {
                       height: 15,
                     ),
                     InkWell(
-                      onTap: () async{
+                      onTap: () async {
                         authController.langIndex(5);
                          await Future.delayed(const Duration(seconds: 1));
                         Get.to(() => LoginView());
