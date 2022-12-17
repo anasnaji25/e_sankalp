@@ -25,7 +25,7 @@ class _ChooseLanguageViewState extends State<ChooseLanguageView> {
     return Container(
       decoration: const BoxDecoration(
           image: DecorationImage(
-              image: AssetImage("assets/images/background.png"))),
+              image: AssetImage("assets/images/backgoud_img (3).jpeg"))),
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: Center(

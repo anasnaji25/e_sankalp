@@ -1,5 +1,7 @@
 import 'package:e_sankalp/src/const/app_colors.dart';
 import 'package:e_sankalp/src/const/app_font.dart';
+import 'package:e_sankalp/src/controllers/auth_controller.dart';
+import 'package:e_sankalp/src/view/admin_view/admin_view.dart';
 import 'package:e_sankalp/src/view/booking_view/booking_view.dart';
 import 'package:e_sankalp/src/view/donation_view/donations_view.dart';
 import 'package:e_sankalp/src/view/home_view/notification_screen.dart';
@@ -17,6 +19,8 @@ class HomePageView extends StatefulWidget {
 }
 
 class _HomePageViewState extends State<HomePageView> {
+  final authController = Get.find<AuthController>();
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -105,15 +109,18 @@ class _HomePageViewState extends State<HomePageView> {
                               const SizedBox(
                                 width: 5,
                               ),
-                              Text(
-                                "Rasi",
-                                style: GoogleFonts.podkova().copyWith(
-                                    color: Colors.white, fontSize: 13),
+                              Container(
+                                width: 60,
+                                child: Text(
+                                  "Rasi",
+                                  style: GoogleFonts.podkova().copyWith(
+                                      color: Colors.white, fontSize: 13),
+                                ),
                               )
                             ],
                           ),
                           const SizedBox(
-                            width: 40,
+                            width: 15,
                           ),
                           Row(
                             children: [
@@ -153,11 +160,23 @@ class _HomePageViewState extends State<HomePageView> {
                               const SizedBox(
                                 width: 5,
                               ),
-                              Text(
-                                "Gothram",
-                                style: GoogleFonts.podkova().copyWith(
-                                    color: Colors.white, fontSize: 13),
-                              )
+                              Container(
+                                width: 60,
+                                child: TextField(
+                                  style: GoogleFonts.podkova().copyWith(
+                                      color: Colors.white, fontSize: 13),
+                                  decoration: InputDecoration.collapsed(
+                                    hintText: "Gothram",
+                                    hintStyle: GoogleFonts.podkova().copyWith(
+                                        color: Colors.white, fontSize: 13),
+                                  ),
+                                ),
+                              ),
+                              // Text(
+                              //   "Gothram",
+                              //   style: GoogleFonts.podkova().copyWith(
+                              //       color: Colors.white, fontSize: 13),
+                              // )
                             ],
                           ),
                           const SizedBox(
@@ -175,11 +194,23 @@ class _HomePageViewState extends State<HomePageView> {
                               const SizedBox(
                                 width: 5,
                               ),
-                              Text(
-                                "Kullam",
-                                style: GoogleFonts.podkova().copyWith(
-                                    color: Colors.white, fontSize: 13),
-                              )
+                               Container(
+                                width: 60,
+                                child: TextField(
+                                  style: GoogleFonts.podkova().copyWith(
+                                      color: Colors.white, fontSize: 13),
+                                  decoration: InputDecoration.collapsed(
+                                    hintText: "Kullam",
+                                    hintStyle: GoogleFonts.podkova().copyWith(
+                                        color: Colors.white, fontSize: 13),
+                                  ),
+                                ),
+                              ),
+                              // Text(
+                              //   "Kullam",
+                              //   style: GoogleFonts.podkova().copyWith(
+                              //       color: Colors.white, fontSize: 13),
+                              // )
                             ],
                           ),
                         ],
@@ -229,54 +260,71 @@ class _HomePageViewState extends State<HomePageView> {
           const SizedBox(
             height: 15,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              InkWell(
-                onTap: () {
-                  Get.to(() => BookingView());
-                },
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    SvgPicture.asset("assets/icons/booking_icon.svg"),
-                    Text(
-                      "Booking",
-                      style: primaryFont.copyWith(fontSize: 12),
-                    )
-                  ],
+          Obx(
+            () => Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                InkWell(
+                  onTap: () {
+                    Get.to(() => BookingView());
+                  },
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      SvgPicture.asset("assets/icons/booking_icon.svg"),
+                      Text(
+                        "Booking",
+                        style: primaryFont.copyWith(fontSize: 12),
+                      )
+                    ],
+                  ),
                 ),
-              ),
-              InkWell(
-                onTap: (){
-                  Get.to(()=> DonationsView());
-                },
-                child: Column(
-                  children: [
-                    SvgPicture.asset("assets/icons/donations.svg"),
-                    Text(
-                      "Donate",
-                      style: primaryFont.copyWith(fontSize: 12),
-                    )
-                  ],
+                InkWell(
+                  onTap: () {
+                    Get.to(() => DonationsView());
+                  },
+                  child: Column(
+                    children: [
+                      SvgPicture.asset("assets/icons/donations.svg"),
+                      Text(
+                        "Donate",
+                        style: primaryFont.copyWith(fontSize: 12),
+                      )
+                    ],
+                  ),
                 ),
-              ),
-              InkWell(
-                onTap: () {
-                  Get.to(() => TemplesView());
-                },
-                child: Column(
-                  children: [
-                    SvgPicture.asset("assets/icons/temples.svg"),
-                    Text(
-                      "Temple",
-                      style: primaryFont.copyWith(fontSize: 12),
-                    )
-                  ],
+                InkWell(
+                  onTap: () {
+                    Get.to(() => TemplesView());
+                  },
+                  child: Column(
+                    children: [
+                      SvgPicture.asset("assets/icons/temples.svg"),
+                      Text(
+                        "Temple",
+                        style: primaryFont.copyWith(fontSize: 12),
+                      )
+                    ],
+                  ),
                 ),
-              )
-            ],
+                if (authController.isAdmin.isTrue)
+                  InkWell(
+                    onTap: () {
+                      Get.to(() => AdminView());
+                    },
+                    child: Column(
+                      children: [
+                        SvgPicture.asset("assets/images/Admin.svg"),
+                        Text(
+                          "Admin",
+                          style: primaryFont.copyWith(fontSize: 12),
+                        )
+                      ],
+                    ),
+                  )
+              ],
+            ),
           ),
           const SizedBox(
             height: 20,

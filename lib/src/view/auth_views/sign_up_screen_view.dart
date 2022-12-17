@@ -1,11 +1,14 @@
 import 'package:date_format/date_format.dart';
 import 'package:e_sankalp/src/const/app_colors.dart';
 import 'package:e_sankalp/src/const/app_font.dart';
+import 'package:e_sankalp/src/controllers/auth_controller.dart';
+import 'package:e_sankalp/src/view/auth_views/admin_signup_info_view.dart';
 import 'package:e_sankalp/src/view/auth_views/loading_screen.dart';
 import 'package:e_sankalp/src/view/auth_views/login_screen_view.dart';
 import 'package:e_sankalp/src/view/auth_views/otp_validation_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:otp_text_field/otp_text_field.dart';
 import 'package:otp_text_field/style.dart';
@@ -24,16 +27,17 @@ class _SignUpViewState extends State<SignUpView> {
 
   TimeOfDay time = TimeOfDay.now();
 
+  bool isAdmin = false;
+
   _selectDate(BuildContext context) async {
     DateTime? picked = await showDatePicker(
-        context: context,
-        initialDate: date,
-        
-        initialDatePickerMode: DatePickerMode.day,
-        firstDate: DateTime(2015),
-        lastDate: DateTime(2101),
-        builder: (context, child) {
-           return Theme(
+      context: context,
+      initialDate: date,
+      initialDatePickerMode: DatePickerMode.day,
+      firstDate: DateTime(2015),
+      lastDate: DateTime(2101),
+      builder: (context, child) {
+        return Theme(
           data: Theme.of(context).copyWith(
             colorScheme: ColorScheme.light(
               primary: secondaryColor, // <-- SEE HERE
@@ -48,8 +52,8 @@ class _SignUpViewState extends State<SignUpView> {
           ),
           child: child!,
         );
-        },
-        );
+      },
+    );
 
     if (picked != null)
       setState(() {
@@ -85,7 +89,8 @@ class _SignUpViewState extends State<SignUpView> {
       setState(() {
         time = picked;
 
-        _dateController.text = _dateController.text + " "+
+        _dateController.text = _dateController.text +
+            " " +
             formatDate(DateTime(2019, 08, 1, time.hour, time.minute),
                 [hh, ':', nn, " ", am]).toString();
         ;
@@ -98,7 +103,7 @@ class _SignUpViewState extends State<SignUpView> {
     return Container(
       decoration: const BoxDecoration(
           image: DecorationImage(
-              image: AssetImage("assets/images/background.png"))),
+              image: AssetImage("assets/images/backgoud_img (6).jpeg"))),
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: Container(
@@ -109,14 +114,14 @@ class _SignUpViewState extends State<SignUpView> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const SizedBox(
-                  height: 50,
+                  height: 40,
                 ),
                 Image.asset(
                   "assets/icons/logo.png",
-                  height: 160,
+                  height: 140,
                 ),
                 const SizedBox(
-                  height: 25,
+                  height: 20,
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 15, right: 15),
@@ -275,13 +280,65 @@ class _SignUpViewState extends State<SignUpView> {
                           ),
                         ),
                         const SizedBox(
-                          height: 25,
+                          height: 10,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 30, right: 30),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                children: [
+                                  Checkbox(
+                                      value: !isAdmin,
+                                      activeColor: primaryColor,
+                                      onChanged: (val) {
+                                        setState(() {
+                                          isAdmin = !val!;
+                                        });
+                                      }),
+                                  Text(
+                                    "Customer",
+                                    style: GoogleFonts.lexend().copyWith(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w600),
+                                  )
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Checkbox(
+                                      value: isAdmin,
+                                      activeColor: primaryColor,
+                                      onChanged: (val) {
+                                        setState(() {
+                                          isAdmin = val!;
+                                        });
+                                      }),
+                                  Text(
+                                    "Admin",
+                                    style: GoogleFonts.lexend().copyWith(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w600),
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
                         ),
                         Padding(
                           padding: const EdgeInsets.only(left: 15, right: 15),
                           child: InkWell(
                             onTap: () {
-                              Get.off(()=> LoadingScreenView());
+                              if (isAdmin) {
+                                Get.off(() => SignupAdminView());
+                              } else {
+                                Get.find<AuthController>().isAdmin(false);
+                                Get.off(() => LoadingScreenView());
+                              }
                             },
                             child: Container(
                               height: 50,
@@ -429,6 +486,3 @@ Future<void> _showOTPDialouge(BuildContext context) async {
     },
   );
 }
-
-
-

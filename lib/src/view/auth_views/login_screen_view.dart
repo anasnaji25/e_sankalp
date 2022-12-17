@@ -21,7 +21,7 @@ class _LoginViewState extends State<LoginView> {
     return Container(
       decoration: const BoxDecoration(
           image: DecorationImage(
-              image: AssetImage("assets/images/background.png"))),
+              image: AssetImage("assets/images/backgoud_img (2).jpeg"))),
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: Container(

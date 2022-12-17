@@ -29,7 +29,7 @@ toHomePage() async {
     return Container(
       decoration: const BoxDecoration(
           image: DecorationImage(
-              image: AssetImage("assets/images/Loding – 1.gif"))),
+              image: AssetImage("assets/images/My Video.gif"),fit: BoxFit.fill)),
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: Center(),
