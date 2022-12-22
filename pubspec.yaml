@@ -43,6 +43,9 @@ dependencies:
   intl: ^0.17.0
   date_format: ^2.0.7
   flutter_svg: ^1.1.6
+  dio: ^4.0.6
+  shared_preferences: ^2.0.15
+  flutter_countdown_timer: ^4.1.0
 
 dev_dependencies:
   flutter_test:
@@ -59,7 +62,7 @@ dev_dependencies:
 flutter_icons:
   android: "ic_launcher"
   ios: true
-  image_path: "assets/icons/logo.png"
+  image_path: "assets/icons/e_sankalp_logo.jpeg"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

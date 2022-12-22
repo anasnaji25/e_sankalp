@@ -11,25 +11,24 @@ class LoadingScreenView extends StatefulWidget {
 }
 
 class _LoadingScreenViewState extends State<LoadingScreenView> {
+  @override
+  void initState() {
+    super.initState();
+    toHomePage();
+  }
 
-@override
-void initState() {
-  super.initState();
-  toHomePage();
-}
-
-
-toHomePage() async {
-  await Future.delayed(Duration(seconds: 2));
-  Get.to(()=> HomePageWithNavigation());
-}
+  toHomePage() async {
+    await Future.delayed(Duration(seconds: 2));
+    Get.offAll(() => HomePageWithNavigation());
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
           image: DecorationImage(
-              image: AssetImage("assets/images/My Video.gif"),fit: BoxFit.fill)),
+              image: AssetImage("assets/images/My Video.gif"),
+              fit: BoxFit.fill)),
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: Center(),

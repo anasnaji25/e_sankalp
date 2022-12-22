@@ -1,6 +1,7 @@
 import 'package:e_sankalp/src/view/auth_views/choose_language_view.dart';
 import 'package:e_sankalp/src/view/home_view/home_page_with_navigation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class SplashScreens extends StatefulWidget {
@@ -32,7 +33,10 @@ class _SplashScreensState extends State<SplashScreens> {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: Center(
-          child: Image.asset("assets/icons/logo.png"),
+          child: Padding(
+            padding: const EdgeInsets.only(top: 13),
+            child: Image.asset("assets/icons/spl_logo.png",height: 320,fit: BoxFit.fitHeight,),
+          ),
         ),
       ),
     );
