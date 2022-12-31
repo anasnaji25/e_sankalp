@@ -2,6 +2,7 @@ import 'package:date_format/date_format.dart';
 import 'package:e_sankalp/src/const/app_colors.dart';
 import 'package:e_sankalp/src/const/app_font.dart';
 import 'package:e_sankalp/src/controllers/auth_controller.dart';
+import 'package:e_sankalp/src/models/plannets_model.dart';
 import 'package:e_sankalp/src/view/auth_views/loading_screen.dart';
 import 'package:e_sankalp/src/view/auth_views/login_screen_view.dart';
 import 'package:e_sankalp/src/view/auth_views/otp_validation_view.dart';
@@ -28,6 +29,29 @@ class _SignupAdminViewState extends State<SignupAdminView> {
 
   final authController = Get.find<AuthController>();
   // bool isAdmin = false;
+
+  var selectedPlanet;
+
+  var templeNameTxtCntrl = TextEditingController();
+  var deityNameTxtCmntrl = TextEditingController();
+  var specialityPlanetTxtCntrl = TextEditingController();
+  var hrncTxtContrl = TextEditingController();
+  var organisationTxtCntrl = TextEditingController();
+  var inChargePersonTxtCntrl = TextEditingController();
+  var inChargePersonContactTxtCntrl = TextEditingController();
+  var poojariNameTxtController = TextEditingController();
+  var poojariContactNumTxtcntrl = TextEditingController();
+  var poojariBankNameTxtCntrl = TextEditingController();
+  var poojariAccountNumberTxtControl = TextEditingController();
+  var pooojariIfscTxtControl = TextEditingController();
+  var poojariUpiTxtController = TextEditingController();
+  var templeAccontNameTxtCntrl = TextEditingController();
+  var templeAccontNunberTxtCntrl = TextEditingController();
+  var templeIfscCodeTxtCntrl = TextEditingController();
+  var templeUPITxtCntrl = TextEditingController();
+  var templeAddressTxtCntrl = TextEditingController();
+  var templePhoneTxtCntrol = TextEditingController();
+  var archanaTicket1TxtCntrl = TextEditingController();
 
   _selectDate(BuildContext context) async {
     DateTime? picked = await showDatePicker(
@@ -151,6 +175,7 @@ class _SignupAdminViewState extends State<SignupAdminView> {
                             child: Container(
                               height: 50,
                               child: TextField(
+                                controller: templeNameTxtCntrl,
                                 decoration: InputDecoration(
                                     isDense: true,
                                     hintText: "Temple Name",
@@ -173,6 +198,7 @@ class _SignupAdminViewState extends State<SignupAdminView> {
                             child: Container(
                               height: 50,
                               child: TextField(
+                                controller: deityNameTxtCmntrl,
                                 decoration: InputDecoration(
                                     isDense: true,
                                     hintText: "Deity name",
@@ -190,25 +216,58 @@ class _SignupAdminViewState extends State<SignupAdminView> {
                           const SizedBox(
                             height: 15,
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 15, right: 15),
-                            child: Container(
-                              height: 50,
-                              child: TextField(
-                                decoration: InputDecoration(
-                                    isDense: true,
-                                    hintText: "Speciality planet",
-                                    enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(7),
-                                        borderSide:
-                                            BorderSide(color: primaryColor)),
-                                    focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(7),
-                                        borderSide:
-                                            BorderSide(color: primaryColor))),
+                          GetBuilder<AuthController>(builder: (_) {
+                            return Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 15, right: 15),
+                              child: Container(
+                                height: 50,
+                                child: Container(
+                                  height: 50,
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(7),
+                                      border: Border.all(
+                                          color:
+                                              primaryColor)),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 10, right: 10, top: 10),
+                                    child: DropdownButton<PlanetsModel>(
+                                      borderRadius: BorderRadius.circular(7),
+                                      value: selectedPlanet,
+                                      isExpanded: true,
+                                      icon: const Icon(
+                                          Icons.keyboard_arrow_down_outlined),
+                                      elevation: 12,
+                                      itemHeight: 50,
+                                      isDense: true,
+                                      style: const TextStyle(
+                                          color: Colors.black54),
+                                      hint: Text(
+                                        "Speciality planet",
+                                        style:
+                                            primaryFont.copyWith(fontSize: 14),
+                                      ),
+                                      onChanged: (PlanetsModel? value) {
+                                        setState(() {
+                                          selectedPlanet = value!;
+                                        });
+                                      },
+                                      items: authController.plantsList
+                                          .map<DropdownMenuItem<PlanetsModel>>(
+                                              (PlanetsModel value) {
+                                        return DropdownMenuItem<PlanetsModel>(
+                                          value: value,
+                                          child: Text(value.name),
+                                        );
+                                      }).toList(),
+                                    ),
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
+                            );
+                          }),
                           const SizedBox(
                             height: 15,
                           ),
@@ -217,6 +276,7 @@ class _SignupAdminViewState extends State<SignupAdminView> {
                             child: Container(
                               height: 50,
                               child: TextField(
+                                controller: hrncTxtContrl,
                                 decoration: InputDecoration(
                                     isDense: true,
                                     hintText: "HRNC",
@@ -239,6 +299,7 @@ class _SignupAdminViewState extends State<SignupAdminView> {
                             child: Container(
                               height: 50,
                               child: TextField(
+                                controller: organisationTxtCntrl,
                                 decoration: InputDecoration(
                                     isDense: true,
                                     hintText: "Controlling Organisation",
@@ -261,6 +322,7 @@ class _SignupAdminViewState extends State<SignupAdminView> {
                             child: Container(
                               height: 50,
                               child: TextField(
+                                controller: inChargePersonTxtCntrl,
                                 decoration: InputDecoration(
                                     isDense: true,
                                     hintText: "Person in charge",
@@ -283,6 +345,7 @@ class _SignupAdminViewState extends State<SignupAdminView> {
                             child: Container(
                               height: 50,
                               child: TextField(
+                                controller: inChargePersonContactTxtCntrl,
                                 decoration: InputDecoration(
                                     isDense: true,
                                     hintText:
@@ -306,6 +369,7 @@ class _SignupAdminViewState extends State<SignupAdminView> {
                             child: Container(
                               height: 50,
                               child: TextField(
+                                controller: poojariNameTxtController,
                                 decoration: InputDecoration(
                                     isDense: true,
                                     hintText: "Poojari Name",
@@ -328,6 +392,7 @@ class _SignupAdminViewState extends State<SignupAdminView> {
                             child: Container(
                               height: 50,
                               child: TextField(
+                                controller: poojariContactNumTxtcntrl,
                                 decoration: InputDecoration(
                                     isDense: true,
                                     hintText: "Poojari contact",
@@ -441,37 +506,49 @@ class _SignupAdminViewState extends State<SignupAdminView> {
                                           child: Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
-                                            children: const [
+                                            children: [
                                               TextField(
+                                                controller:
+                                                    poojariBankNameTxtCntrl,
                                                 decoration:
-                                                    InputDecoration.collapsed(
+                                                    const InputDecoration
+                                                            .collapsed(
                                                         hintText: "Name"),
                                               ),
-                                              Divider(
+                                              const Divider(
                                                 thickness: 1.5,
                                               ),
                                               TextField(
+                                                controller:
+                                                    poojariAccountNumberTxtControl,
                                                 decoration:
-                                                    InputDecoration.collapsed(
+                                                    const InputDecoration
+                                                            .collapsed(
                                                         hintText: "Account"),
                                               ),
-                                              Divider(
+                                              const Divider(
                                                 thickness: 1.5,
                                               ),
                                               TextField(
+                                                controller:
+                                                    pooojariIfscTxtControl,
                                                 decoration:
-                                                    InputDecoration.collapsed(
+                                                    const InputDecoration
+                                                            .collapsed(
                                                         hintText: "IFSC Code"),
                                               ),
-                                              Divider(
+                                              const Divider(
                                                 thickness: 1.5,
                                               ),
                                               TextField(
+                                                controller:
+                                                    poojariUpiTxtController,
                                                 decoration:
-                                                    InputDecoration.collapsed(
+                                                    const InputDecoration
+                                                            .collapsed(
                                                         hintText: "UPI ID"),
                                               ),
-                                              Divider(
+                                              const Divider(
                                                 thickness: 1.5,
                                               ),
                                             ],
@@ -554,37 +631,48 @@ class _SignupAdminViewState extends State<SignupAdminView> {
                                           child: Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
-                                            children: const [
+                                            children: [
                                               TextField(
+                                                controller:
+                                                    templeAccontNameTxtCntrl,
                                                 decoration:
-                                                    InputDecoration.collapsed(
+                                                    const InputDecoration
+                                                            .collapsed(
                                                         hintText: "Name"),
                                               ),
-                                              Divider(
+                                              const Divider(
                                                 thickness: 1.5,
                                               ),
                                               TextField(
+                                                controller:
+                                                    templeAccontNunberTxtCntrl,
                                                 decoration:
-                                                    InputDecoration.collapsed(
+                                                    const InputDecoration
+                                                            .collapsed(
                                                         hintText: "Account"),
                                               ),
-                                              Divider(
+                                              const Divider(
                                                 thickness: 1.5,
                                               ),
                                               TextField(
+                                                controller:
+                                                    templeIfscCodeTxtCntrl,
                                                 decoration:
-                                                    InputDecoration.collapsed(
+                                                    const InputDecoration
+                                                            .collapsed(
                                                         hintText: "IFSC Code"),
                                               ),
-                                              Divider(
+                                              const Divider(
                                                 thickness: 1.5,
                                               ),
                                               TextField(
+                                                controller: templeUPITxtCntrl,
                                                 decoration:
-                                                    InputDecoration.collapsed(
+                                                    const InputDecoration
+                                                            .collapsed(
                                                         hintText: "UPI ID"),
                                               ),
-                                              Divider(
+                                              const Divider(
                                                 thickness: 1.5,
                                               ),
                                             ],
@@ -831,9 +919,7 @@ class _SignupAdminViewState extends State<SignupAdminView> {
                           Padding(
                             padding: const EdgeInsets.only(left: 15, right: 15),
                             child: InkWell(
-                              onTap: (
-                                
-                              ) {
+                              onTap: () {
                                 authController.isAdmin(true);
                                 Get.off(() => LoadingScreenView());
                               },

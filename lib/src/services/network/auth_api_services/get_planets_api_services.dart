@@ -4,14 +4,14 @@ import 'package:e_sankalp/src/models/register_model.dart';
 import 'package:e_sankalp/src/services/base_urls/base_url_api_services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class RegisterServicesApi extends BaseApiService {
-  Future register(RegisterModel registerModel) async {
+class GetPlanetsApiServices extends BaseApiService {
+  Future getPlanets() async {
     dynamic responseJson;
     try {
       var dio = Dio();
       // final prefs = await SharedPreferences.getInstance();
       // String? authtoken = prefs.getString("auth_token");
-      var response = await dio.post(registerUrl,
+      var response = await dio.get(planetsURL,
           options: Options(
               headers: {
                 'Accept': 'application/json',
@@ -20,15 +20,8 @@ class RegisterServicesApi extends BaseApiService {
               validateStatus: (status) {
                 return status! <= 500;
               }),
-          data: {
-            "name": registerModel.name,
-            "phone_number": registerModel.phoneNumber,
-            "email": registerModel.email,
-            "dob": registerModel.dob,
-            "place": registerModel.place,
-            "role": registerModel.role
-          });
-      print("::::::::<Register>::::::::status code::::::::::::::");
+         );
+      print("::::::::<Planets>::::::::status code::::::::::::::");
       print(response.statusCode);
       print(response.data);
       responseJson = response;

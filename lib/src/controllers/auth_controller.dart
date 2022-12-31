@@ -1,5 +1,7 @@
 import 'package:e_sankalp/src/const/auth_helpers.dart';
+import 'package:e_sankalp/src/models/plannets_model.dart';
 import 'package:e_sankalp/src/models/register_model.dart';
+import 'package:e_sankalp/src/services/network/auth_api_services/get_planets_api_services.dart';
 import 'package:e_sankalp/src/services/network/auth_api_services/register_api_services.dart';
 import 'package:e_sankalp/src/services/network/auth_api_services/verify_email_api_services.dart';
 import 'package:e_sankalp/src/services/network/auth_api_services/verify_mobile_otp_api_services.dart';
@@ -32,6 +34,10 @@ class AuthController extends GetxController {
 
   RegisterServicesApi registerApi = RegisterServicesApi();
 
+  GetPlanetsApiServices getPlanetsApiServices = GetPlanetsApiServices();
+
+  List<PlanetsModel> plantsList = [];
+
   verifyMobile(String mobile) async {
     dio.Response<dynamic> response = await verifyMobileApi.verifyMobile(mobile);
 
@@ -52,15 +58,14 @@ class AuthController extends GetxController {
   verifyMobileOtp(String mobileNumber, String otp) async {
     dio.Response<dynamic> response =
         await verifyMobileOtpAPi.verifyMobileOTP(mobileNumber, otp);
-    
+
     if (response.statusCode == 200) {
-       isMobileNumberVerified(true);
+      isMobileNumberVerified(true);
       Get.back();
       Get.snackbar("Mobile Number Verified Successfully", "",
           colorText: Colors.white,
           backgroundColor: Colors.green,
           snackPosition: SnackPosition.BOTTOM);
-     
     } else {
       Get.snackbar("Invalid Otp", "try again",
           colorText: Colors.white,
@@ -88,5 +93,14 @@ class AuthController extends GetxController {
           backgroundColor: Colors.red,
           snackPosition: SnackPosition.BOTTOM);
     }
+  }
+
+  getPlanetsList() async {
+    dio.Response<dynamic> response = await getPlanetsApiServices.getPlanets();
+
+    if (response.statusCode == 200) {
+      plantsList = planetsModelFromJson(response.data);
+    }
+    update();
   }
 }

@@ -112,6 +112,7 @@ class _SignUpViewState extends State<SignUpView> {
     super.initState();
     authController.isMobileAvailable(true);
     authController.isMobileNumberVerified(false);
+    authController.getPlanetsList();
   }
 
   @override
@@ -195,10 +196,10 @@ class _SignUpViewState extends State<SignUpView> {
                                           color: Colors.green,
                                         )
                                       : Container(
-                                        width: 1,
-                                        height: 1,
-                                      ),
-                                 prefix: Text("+91"),
+                                          width: 1,
+                                          height: 1,
+                                        ),
+                                  prefix: Text("+91"),
                                   enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(7),
                                       borderSide:
