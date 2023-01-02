@@ -1,6 +1,7 @@
 import 'package:e_sankalp/src/const/app_colors.dart';
 import 'package:e_sankalp/src/const/app_font.dart';
 import 'package:e_sankalp/src/controllers/auth_controller.dart';
+import 'package:e_sankalp/src/controllers/profile_controller.dart';
 import 'package:e_sankalp/src/view/admin_view/admin_view.dart';
 import 'package:e_sankalp/src/view/booking_view/booking_view.dart';
 import 'package:e_sankalp/src/view/donation_view/donations_view.dart';
@@ -20,6 +21,13 @@ class HomePageView extends StatefulWidget {
 
 class _HomePageViewState extends State<HomePageView> {
   final authController = Get.find<AuthController>();
+  final profileController = Get.find<ProfileController>();
+
+  @override
+  void initState() {
+    super.initState();
+    profileController.getProfile();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -194,7 +202,7 @@ class _HomePageViewState extends State<HomePageView> {
                               const SizedBox(
                                 width: 5,
                               ),
-                               Container(
+                              Container(
                                 width: 60,
                                 child: TextField(
                                   style: GoogleFonts.podkova().copyWith(

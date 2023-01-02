@@ -1,3 +1,4 @@
+import 'package:e_sankalp/src/controllers/profile_controller.dart';
 import 'package:e_sankalp/src/view/auth_views/choose_language_view.dart';
 import 'package:e_sankalp/src/view/home_view/home_page_with_navigation.dart';
 import 'package:flutter/material.dart';
@@ -11,14 +12,17 @@ class LoadingScreenView extends StatefulWidget {
 }
 
 class _LoadingScreenViewState extends State<LoadingScreenView> {
+  final profileController = Get.find<ProfileController>();
+
   @override
   void initState() {
     super.initState();
+    profileController.getProfile();
     toHomePage();
   }
 
   toHomePage() async {
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 2));
     Get.offAll(() => HomePageWithNavigation());
   }
 

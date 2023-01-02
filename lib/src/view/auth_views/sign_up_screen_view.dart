@@ -222,11 +222,9 @@ class _SignUpViewState extends State<SignUpView> {
                                       mobileNumController.text.length == 10) {
                                     authController
                                         .verifyMobile(mobileNumController.text);
-                                    _showOTPDialouge(
-                                        context, mobileNumController.text);
+                                    _showOTPDialouge(context, mobileNumController.text);
                                   } else {
-                                    Get.snackbar(
-                                        "Enter a valid Phone number", "",
+                                    Get.snackbar("Enter a valid Phone number", "",
                                         colorText: Colors.white,
                                         backgroundColor: Colors.red,
                                         snackPosition: SnackPosition.BOTTOM);
@@ -395,7 +393,16 @@ class _SignUpViewState extends State<SignUpView> {
                                   if (authController
                                       .isMobileNumberVerified.isTrue) {
                                     if (isAdmin) {
-                                      Get.off(() => SignupAdminView());
+                                      RegisterModel registerModel = RegisterModel(
+                                          name: nameController.text,
+                                          phoneNumber: mobileNumController.text,
+                                          dob:
+                                              "${date.day}-${date.month}-${date.year} ${time.hour}:${time.minute}:00",
+                                          email: emailIdController.text,
+                                          place: placeController.text,
+                                          role: "Admin");
+
+                                      Get.off(() => SignupAdminView(registerModel: registerModel,));
                                     } else {
                                       RegisterModel registerModel = RegisterModel(
                                           name: nameController.text,

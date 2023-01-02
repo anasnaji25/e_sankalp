@@ -1,20 +1,26 @@
+import 'dart:io';
+
 import 'package:date_format/date_format.dart';
 import 'package:e_sankalp/src/const/app_colors.dart';
 import 'package:e_sankalp/src/const/app_font.dart';
 import 'package:e_sankalp/src/controllers/auth_controller.dart';
+import 'package:e_sankalp/src/models/admin_register_model.dart';
 import 'package:e_sankalp/src/models/plannets_model.dart';
+import 'package:e_sankalp/src/models/register_model.dart';
 import 'package:e_sankalp/src/view/auth_views/loading_screen.dart';
 import 'package:e_sankalp/src/view/auth_views/login_screen_view.dart';
 import 'package:e_sankalp/src/view/auth_views/otp_validation_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:otp_text_field/otp_text_field.dart';
 import 'package:otp_text_field/style.dart';
 
 class SignupAdminView extends StatefulWidget {
-  const SignupAdminView({super.key});
+  RegisterModel registerModel;
+  SignupAdminView({super.key, required this.registerModel});
 
   @override
   State<SignupAdminView> createState() => _SignupAdminViewState();
@@ -31,7 +37,8 @@ class _SignupAdminViewState extends State<SignupAdminView> {
   // bool isAdmin = false;
 
   var selectedPlanet;
-
+  String imageName = "";
+  String timageName = "Poojari(aadhar-pan-licence-voter id)";
   var templeNameTxtCntrl = TextEditingController();
   var deityNameTxtCmntrl = TextEditingController();
   var specialityPlanetTxtCntrl = TextEditingController();
@@ -52,6 +59,11 @@ class _SignupAdminViewState extends State<SignupAdminView> {
   var templeAddressTxtCntrl = TextEditingController();
   var templePhoneTxtCntrol = TextEditingController();
   var archanaTicket1TxtCntrl = TextEditingController();
+  var archanaTicket2TxtCntrl = TextEditingController();
+  var archanaTicket3TxtCntrl = TextEditingController();
+  var archanaTicket4TxtCntrl = TextEditingController();
+  var archanaTicket5TxtCntrl = TextEditingController();
+  var archanaVeehicleCoastTxtCntrl = TextEditingController();
 
   _selectDate(BuildContext context) async {
     DateTime? picked = await showDatePicker(
@@ -227,9 +239,7 @@ class _SignupAdminViewState extends State<SignupAdminView> {
                                   decoration: BoxDecoration(
                                       color: Colors.white,
                                       borderRadius: BorderRadius.circular(7),
-                                      border: Border.all(
-                                          color:
-                                              primaryColor)),
+                                      border: Border.all(color: primaryColor)),
                                   child: Padding(
                                     padding: const EdgeInsets.only(
                                         left: 10, right: 10, top: 10),
@@ -412,26 +422,49 @@ class _SignupAdminViewState extends State<SignupAdminView> {
                           ),
                           Padding(
                             padding: const EdgeInsets.only(left: 15, right: 15),
-                            child: Container(
-                              height: 50,
-                              child: TextField(
-                                readOnly: true,
-                                decoration: InputDecoration(
-                                    isDense: true,
-                                    hintText:
-                                        "Poojari(aadhar-pan-licence-voter id)",
-                                    enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(7),
-                                        borderSide:
-                                            BorderSide(color: primaryColor)),
-                                    suffixIcon: Icon(
-                                      Icons.upload,
-                                      color: secondaryColor,
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(7),
-                                        borderSide:
-                                            BorderSide(color: primaryColor))),
+                            child: InkWell(
+                              onTap: () async {
+                                final ImagePicker _picker = ImagePicker();
+                                // Pick an image
+                                final XFile? image = await _picker.pickImage(
+                                    source: ImageSource.gallery);
+                                setState(() {
+                                  imageName = image!.path;
+                                  timageName = image.name;
+                                });
+                              },
+                              child: Container(
+                                height: 50,
+                                child: TextField(
+                                  readOnly: true,
+                                  onTap: () async{
+                                     final ImagePicker _picker = ImagePicker();
+                                // Pick an image
+                                final XFile? image = await _picker.pickImage(
+                                    source: ImageSource.gallery);
+                                setState(() {
+                                  imageName = image!.path;
+                                  timageName = image.name;
+                                });
+                                  },
+                                  decoration: InputDecoration(
+                                      isDense: true,
+                                      hintText: timageName,
+                                      enabledBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(7),
+                                          borderSide:
+                                              BorderSide(color: primaryColor)),
+                                      suffixIcon: Icon(
+                                        Icons.upload,
+                                        color: secondaryColor,
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(7),
+                                          borderSide:
+                                              BorderSide(color: primaryColor))),
+                                ),
                               ),
                             ),
                           ),
@@ -755,21 +788,23 @@ class _SignupAdminViewState extends State<SignupAdminView> {
                                           child: Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
-                                            children: const [
+                                            children:  [
                                               TextField(
+                                                controller: templeAddressTxtCntrl,
                                                 decoration:
-                                                    InputDecoration.collapsed(
+                                                   const InputDecoration.collapsed(
                                                         hintText: "Address"),
                                               ),
-                                              Divider(
+                                             const Divider(
                                                 thickness: 1.5,
                                               ),
                                               TextField(
+                                                controller: templePhoneTxtCntrol,
                                                 decoration:
-                                                    InputDecoration.collapsed(
+                                                   const InputDecoration.collapsed(
                                                         hintText: "Phone"),
                                               ),
-                                              Divider(
+                                              const Divider(
                                                 thickness: 1.5,
                                               ),
                                             ],
@@ -852,53 +887,59 @@ class _SignupAdminViewState extends State<SignupAdminView> {
                                           child: Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
-                                            children: const [
+                                            children:  [
                                               TextField(
+                                                controller: archanaTicket1TxtCntrl,
                                                 decoration:
-                                                    InputDecoration.collapsed(
+                                                  const  InputDecoration.collapsed(
                                                         hintText: "Pooja 1"),
                                               ),
-                                              Divider(
+                                             const Divider(
                                                 thickness: 1.5,
                                               ),
                                               TextField(
+                                                controller: archanaTicket2TxtCntrl,
                                                 decoration:
-                                                    InputDecoration.collapsed(
+                                                  const  InputDecoration.collapsed(
                                                         hintText: "Pooja 2"),
                                               ),
-                                              Divider(
+                                            const   Divider(
                                                 thickness: 1.5,
                                               ),
                                               TextField(
+                                                controller: archanaTicket3TxtCntrl,
                                                 decoration:
-                                                    InputDecoration.collapsed(
+                                                    const InputDecoration.collapsed(
                                                         hintText: "Pooja 3"),
                                               ),
-                                              Divider(
+                                             const Divider(
                                                 thickness: 1.5,
                                               ),
                                               TextField(
+                                                controller: archanaTicket4TxtCntrl,
                                                 decoration:
-                                                    InputDecoration.collapsed(
+                                                   const InputDecoration.collapsed(
                                                         hintText: "Pooja 4"),
                                               ),
-                                              Divider(
+                                            const  Divider(
                                                 thickness: 1.5,
                                               ),
                                               TextField(
+                                                controller: archanaTicket5TxtCntrl,
                                                 decoration:
-                                                    InputDecoration.collapsed(
+                                                   const InputDecoration.collapsed(
                                                         hintText: "Pooja 5"),
                                               ),
-                                              Divider(
+                                           const   Divider(
                                                 thickness: 1.5,
                                               ),
                                               TextField(
+                                                controller: archanaVeehicleCoastTxtCntrl,
                                                 decoration:
-                                                    InputDecoration.collapsed(
+                                                  const  InputDecoration.collapsed(
                                                         hintText: "vehicle"),
                                               ),
-                                              Divider(
+                                              const Divider(
                                                 thickness: 1.5,
                                               ),
                                             ],
@@ -920,8 +961,104 @@ class _SignupAdminViewState extends State<SignupAdminView> {
                             padding: const EdgeInsets.only(left: 15, right: 15),
                             child: InkWell(
                               onTap: () {
-                                authController.isAdmin(true);
-                                Get.off(() => LoadingScreenView());
+                                if (templeNameTxtCntrl.text.isNotEmpty &&
+                                    deityNameTxtCmntrl.text.isNotEmpty &&
+                                    hrncTxtContrl.text.isNotEmpty &&
+                                    organisationTxtCntrl.text.isNotEmpty &&
+                                    inChargePersonTxtCntrl.text.isNotEmpty &&
+                                    inChargePersonContactTxtCntrl
+                                        .text.isNotEmpty &&
+                                    poojariNameTxtController.text.isNotEmpty &&
+                                    poojariContactNumTxtcntrl.text.isNotEmpty &&
+                                    poojariBankNameTxtCntrl.text.isNotEmpty &&
+                                    poojariAccountNumberTxtControl
+                                        .text.isNotEmpty &&
+                                    pooojariIfscTxtControl.text.isNotEmpty &&
+                                    poojariUpiTxtController.text.isNotEmpty &&
+                                    templeAccontNameTxtCntrl.text.isNotEmpty &&
+                                    templeAccontNunberTxtCntrl
+                                        .text.isNotEmpty &&
+                                    templeIfscCodeTxtCntrl.text.isNotEmpty &&
+                                    templeUPITxtCntrl.text.isNotEmpty &&
+                                    templeAddressTxtCntrl.text.isNotEmpty &&
+                                    templePhoneTxtCntrol.text.isNotEmpty &&
+                                    archanaTicket1TxtCntrl.text.isNotEmpty &&
+                                    selectedPlanet != null) {
+                                  PlanetsModel tplanetModel =
+                                      selectedPlanet as PlanetsModel;
+                                  AdminRegisterModel adminRegisterModel =
+                                      AdminRegisterModel(
+                                          templeName: templeNameTxtCntrl.text,
+                                          deityName: deityNameTxtCmntrl.text,
+                                          specialityPlanet: tplanetModel.name,
+                                          hrnc: hrncTxtContrl.text,
+                                          organisation:
+                                              organisationTxtCntrl.text,
+                                          inChargePerson:
+                                              inChargePersonTxtCntrl.text,
+                                          inchanrgePersonContanct:
+                                              inChargePersonContactTxtCntrl
+                                                  .text,
+                                          poojariContactNumber:
+                                              poojariContactNumTxtcntrl.text,
+                                          pooojariName:
+                                              poojariNameTxtController.text,
+                                          poojariAuthImage: File(imageName),
+                                          poojariBankName:
+                                              poojariBankNameTxtCntrl.text,
+                                          poojariAccountNum:
+                                              poojariAccountNumberTxtControl
+                                                  .text,
+                                          poojariIfsc:
+                                              pooojariIfscTxtControl.text,
+                                          poojariUPI:
+                                              poojariUpiTxtController.text,
+                                          templeAccountName:
+                                              templeAccontNameTxtCntrl.text,
+                                          templeAccountNumber:
+                                              templeAccontNunberTxtCntrl.text,
+                                          templeteIfsc:
+                                              templeIfscCodeTxtCntrl.text,
+                                          templeUPI: templeUPITxtCntrl.text,
+                                          templeAddress:
+                                              templeAddressTxtCntrl.text,
+                                          templePhone:
+                                              templePhoneTxtCntrol.text,
+                                          archanaticket1:
+                                              archanaTicket1TxtCntrl.text,
+                                          archanaticket2:
+                                              archanaTicket2TxtCntrl.text,
+                                          archanaticket3:
+                                              archanaTicket3TxtCntrl.text,
+                                          archanaticket4:
+                                              archanaTicket4TxtCntrl.text,
+                                          archanaticket5:
+                                              archanaTicket5TxtCntrl.text,
+                                          archanaTicketVehicle:
+                                              archanaVeehicleCoastTxtCntrl
+                                                  .text);
+
+                                  authController.registerAdmin(
+                                      adminRegisterModel: adminRegisterModel,
+                                      registerModel: widget.registerModel);
+                                }else{
+                                   Get.snackbar(
+                                    "Fill All the Fields",
+                                    "Please fill all the fields",
+                                    icon: const Icon(Icons.error_outline,
+                                        color: Colors.white),
+                                    snackPosition: SnackPosition.BOTTOM,
+                                    backgroundColor: Colors.red,
+                                    borderRadius: 20,
+                                    margin: EdgeInsets.all(15),
+                                    colorText: Colors.white,
+                                    duration: Duration(seconds: 3),
+                                    isDismissible: true,
+                                    dismissDirection:
+                                        DismissDirection.horizontal,
+                                    forwardAnimationCurve: Curves.easeOutBack,
+                                  );
+                                }
                               },
                               child: Container(
                                 height: 50,

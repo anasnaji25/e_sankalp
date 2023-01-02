@@ -16,4 +16,15 @@ abstract class BaseApiService {
       "https://batechnology.in/sankalpweb/public/api/admin_register";
 
   String planetsURL = "https://batechnology.in/sankalpweb/public/api/planet";
+
+  String verifyMobileLoginURL =
+      "https://batechnology.in/sankalpweb/public/api/verifyuser";
+      
+  String verifyOTPLoginURL =
+      "https://batechnology.in/sankalpweb/public/api/verifyotp";
+
+
+  String getProfileURL = "https://batechnology.in/sankalpweb/public/api/user";
+
+  String updateProfileURL = "https://batechnology.in/sankalpweb/public/api/updateUser";          
 }

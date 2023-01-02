@@ -16,6 +16,7 @@ class AdminRegisterModel {
   String poojariIfsc;
   String poojariUPI;
   String templeAccountName;
+  String templeAccountNumber;
   String templeteIfsc;
   String templeUPI;
   String templeAddress;
@@ -43,6 +44,7 @@ class AdminRegisterModel {
       required this.poojariIfsc,
       required this.poojariUPI,
       required this.templeAccountName,
+      required this.templeAccountNumber,
       required this.templeteIfsc,
       required this.templeUPI,
       required this.templeAddress,

@@ -1,3 +1,5 @@
+import 'package:e_sankalp/src/controllers/auth_controller.dart';
+import 'package:e_sankalp/src/controllers/profile_controller.dart';
 import 'package:e_sankalp/src/view/account_views/change_language.dart';
 import 'package:e_sankalp/src/view/account_views/my_family_screen.dart';
 import 'package:e_sankalp/src/view/account_views/my_profile.dart';
@@ -18,6 +20,7 @@ class MyAccountScreen extends StatefulWidget {
 }
 
 class _MyAccountScreenState extends State<MyAccountScreen> {
+  final profileController = Get.find<ProfileController>();
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -43,10 +46,12 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
           ),
           InkWell(
             onTap: () {
+              
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => const MyProfileScreen()),
+                MaterialPageRoute(builder: (context) => MyProfileScreen(
+                  profileUser: profileController.profileData.first,
+                )),
               );
             },
             child: Padding(
@@ -222,52 +227,57 @@ class _MyAccountScreenState extends State<MyAccountScreen> {
           Padding(
             padding:
                 const EdgeInsets.only(left: 10, right: 10, top: 15, bottom: 10),
-            child: Container(
-              height: 50,
-              width: size.width,
-              child: Padding(
-                padding: const EdgeInsets.only(right: 10, left: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Icon(
-                          Icons.logout_outlined,
-                          color: primaryColor,
-                          size: 30,
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text("Logout",
-                            style: GoogleFonts.roboto(
-                              fontSize: 19,
-                              fontWeight: FontWeight.w500,
-                            )),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.arrow_forward_ios,
-                          color: primaryColor,
-                        )
-                      ],
-                    ),
+            child: InkWell(
+              onTap: () {
+                Get.find<AuthController>().logout();
+              },
+              child: Container(
+                height: 50,
+                width: size.width,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Color(0xff00000029),
+                      blurRadius: 5.5,
+                    )
                   ],
+                  border: Border.all(color: primaryColor),
                 ),
-              ),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                    color: Color(0xff00000029),
-                    blurRadius: 5.5,
-                  )
-                ],
-                border: Border.all(color: primaryColor),
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 10, left: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Icon(
+                            Icons.logout_outlined,
+                            color: primaryColor,
+                            size: 30,
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text("Logout",
+                              style: GoogleFonts.roboto(
+                                fontSize: 19,
+                                fontWeight: FontWeight.w500,
+                              )),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.arrow_forward_ios,
+                            color: primaryColor,
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ),
           ),
