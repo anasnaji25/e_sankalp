@@ -334,19 +334,25 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                     Padding(
                       padding:
                           const EdgeInsets.only(left: 15, right: 15, top: 20),
-                      child: Container(
-                        height: 40,
-                        width: size.width,
-                        child: Center(
-                          child: Text("Cancel",
-                              style: GoogleFonts.roboto(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.w500,
-                                  color: greyColor)),
+                      child: InkWell(
+                        onTap: (){
+                          Get.find<ProfileController>().getProfile();
+                          Get.back();
+                        },
+                        child: Container(
+                          height: 40,
+                          width: size.width,
+                          decoration: BoxDecoration(
+                              color: const Color(0xffE4E4E4),
+                              borderRadius: BorderRadius.circular(2)),
+                          child: Center(
+                            child: Text("Cancel",
+                                style: GoogleFonts.roboto(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.w500,
+                                    color: greyColor)),
+                          ),
                         ),
-                        decoration: BoxDecoration(
-                            color: const Color(0xffE4E4E4),
-                            borderRadius: BorderRadius.circular(2)),
                       ),
                     ),
                   ]),

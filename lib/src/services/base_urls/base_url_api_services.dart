@@ -26,5 +26,10 @@ abstract class BaseApiService {
 
   String getProfileURL = "https://batechnology.in/sankalpweb/public/api/user";
 
-  String updateProfileURL = "https://batechnology.in/sankalpweb/public/api/updateUser";          
+  String updateProfileURL = "https://batechnology.in/sankalpweb/public/api/updateUser";     
+  String addFamilyMemberURL = "https://batechnology.in/sankalpweb/public/api/addfamily";
+  String getFamilyMembersURL =  "https://batechnology.in/sankalpweb/public/api/displayfamily"; 
+   
+   
+
 }

@@ -1,5 +1,6 @@
 import 'package:e_sankalp/src/const/app_colors.dart';
 import 'package:e_sankalp/src/controllers/auth_controller.dart';
+import 'package:e_sankalp/src/controllers/donation_amount_controller.dart';
 import 'package:e_sankalp/src/controllers/profile_controller.dart';
 import 'package:e_sankalp/src/controllers/temple_controller.dart';
 import 'package:e_sankalp/src/view/auth_views/splash_screen.dart';
@@ -10,6 +11,7 @@ void main() {
   Get.put(AuthController());
   Get.put(TempleController());
   Get.put(ProfileController());
+  Get.put(DonationController());
   runApp(const MyApp());
 }
 

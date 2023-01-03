@@ -27,6 +27,7 @@ class _HomePageViewState extends State<HomePageView> {
   void initState() {
     super.initState();
     profileController.getProfile();
+    
   }
 
   @override
@@ -268,72 +269,75 @@ class _HomePageViewState extends State<HomePageView> {
           const SizedBox(
             height: 15,
           ),
-          Obx(
-            () => Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                InkWell(
-                  onTap: () {
-                    Get.to(() => BookingView());
-                  },
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      SvgPicture.asset("assets/icons/booking_icon.svg"),
-                      Text(
-                        "Booking",
-                        style: primaryFont.copyWith(fontSize: 12),
-                      )
-                    ],
-                  ),
-                ),
-                InkWell(
-                  onTap: () {
-                    Get.to(() => DonationsView());
-                  },
-                  child: Column(
-                    children: [
-                      SvgPicture.asset("assets/icons/donations.svg"),
-                      Text(
-                        "Donate",
-                        style: primaryFont.copyWith(fontSize: 12),
-                      )
-                    ],
-                  ),
-                ),
-                InkWell(
-                  onTap: () {
-                    Get.to(() => TemplesView());
-                  },
-                  child: Column(
-                    children: [
-                      SvgPicture.asset("assets/icons/temples.svg"),
-                      Text(
-                        "Temple",
-                        style: primaryFont.copyWith(fontSize: 12),
-                      )
-                    ],
-                  ),
-                ),
-                if (authController.isAdmin.isTrue)
-                  InkWell(
-                    onTap: () {
-                      Get.to(() => AdminView());
-                    },
-                    child: Column(
-                      children: [
-                        SvgPicture.asset("assets/images/Admin.svg"),
-                        Text(
-                          "Admin",
-                          style: primaryFont.copyWith(fontSize: 12),
-                        )
-                      ],
+          GetBuilder<ProfileController>(
+            builder: (_) {
+              return Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        Get.to(() => BookingView());
+                      },
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          SvgPicture.asset("assets/icons/booking_icon.svg"),
+                          Text(
+                            "Booking",
+                            style: primaryFont.copyWith(fontSize: 12),
+                          )
+                        ],
+                      ),
                     ),
-                  )
-              ],
-            ),
+                    InkWell(
+                      onTap: () {
+                        Get.to(() => DonationsView());
+                      },
+                      child: Column(
+                        children: [
+                          SvgPicture.asset("assets/icons/donations.svg"),
+                          Text(
+                            "Donate",
+                            style: primaryFont.copyWith(fontSize: 12),
+                          )
+                        ],
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        Get.to(() => TemplesView());
+                      },
+                      child: Column(
+                        children: [
+                          SvgPicture.asset("assets/icons/temples.svg"),
+                          Text(
+                            "Temple",
+                            style: primaryFont.copyWith(fontSize: 12),
+                          )
+                        ],
+                      ),
+                    ),
+                    if (authController.isAdmin.isTrue)
+                      InkWell(
+                        onTap: () {
+                          Get.to(() => AdminView());
+                        },
+                        child: Column(
+                          children: [
+                            SvgPicture.asset("assets/images/Admin.svg"),
+                            Text(
+                              "Admin",
+                              style: primaryFont.copyWith(fontSize: 12),
+                            )
+                          ],
+                        ),
+                      )
+                  ],
+                );
+            }
           ),
+          
           const SizedBox(
             height: 20,
           ),

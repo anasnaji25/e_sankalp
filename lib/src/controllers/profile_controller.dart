@@ -1,4 +1,9 @@
+import 'package:e_sankalp/src/controllers/auth_controller.dart';
+import 'package:e_sankalp/src/models/add_family_member_api.dart';
+import 'package:e_sankalp/src/models/gat_family_members_model.dart';
 import 'package:e_sankalp/src/models/profile_models.dart';
+import 'package:e_sankalp/src/services/network/profile_api_services/add_family_memeber_api_services.dart';
+import 'package:e_sankalp/src/services/network/profile_api_services/get_family_members.dart';
 import 'package:e_sankalp/src/services/network/profile_api_services/get_profile_api_services.dart';
 import 'package:e_sankalp/src/services/network/profile_api_services/update_profile_api_services.dart';
 import 'package:flutter/material.dart';
@@ -9,16 +14,26 @@ import 'package:dio/dio.dart' as dio;
 class ProfileController extends GetxController {
   GetProfileApiServices getProfileApi = GetProfileApiServices();
   UpdateProfileApi updateProfileApi = UpdateProfileApi();
+  AddFamilyServicesApi addFamilyServicesApi = AddFamilyServicesApi();
+  GetFamilyServicesApi getFamilyServicesApi = GetFamilyServicesApi();
 
   List<ProfileUser> profileData = [];
+
+  List<Member> membersList = [];
 
   getProfile() async {
     profileData.clear();
     dio.Response<dynamic> response = await getProfileApi.getProfile();
-
     if (response.statusCode == 200) {
       ProfileModel profileModel = ProfileModel.fromJson(response.data);
       profileData.add(profileModel.user);
+      if (profileModel.user.role == "Admin") {
+        Get.find<AuthController>().isAdmin(true);
+      } else {
+        Get.find<AuthController>().isAdmin(false);
+      }
+      update();
+      Get.find<AuthController>().update();
     }
   }
 
@@ -57,6 +72,42 @@ class ProfileController extends GetxController {
         dismissDirection: DismissDirection.horizontal,
         forwardAnimationCurve: Curves.easeOutBack,
       );
+    }
+  }
+
+  addFamilyMember(AddFamilyModel addFamilyModel) async {
+    dio.Response<dynamic> response =
+        await addFamilyServicesApi.addFamily(addFamilyModel);
+    if (response.statusCode == 200) {
+      Get.back();
+      Get.snackbar(
+        "Family member added Successfully",
+        "",
+        icon: const Icon(Icons.check_circle_outline_outlined,
+            color: Colors.white),
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.green,
+        borderRadius: 20,
+        margin: const EdgeInsets.all(15),
+        colorText: Colors.white,
+        duration: const Duration(seconds: 3),
+        isDismissible: true,
+        dismissDirection: DismissDirection.horizontal,
+        forwardAnimationCurve: Curves.easeOutBack,
+      );
+      getFamilyMembers();
+    }
+  }
+
+  getFamilyMembers() async {
+    dio.Response<dynamic> response =
+        await getFamilyServicesApi.getFamilyMembers();
+
+    if (response.statusCode == 200) {
+      FamilyMembersModel familyMembersModel =
+          FamilyMembersModel.fromJson(response.data);
+      membersList = familyMembersModel.member;
+      update();
     }
   }
 }
