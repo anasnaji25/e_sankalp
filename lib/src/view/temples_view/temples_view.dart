@@ -1,6 +1,7 @@
 import 'package:bottom_bar/bottom_bar.dart';
 import 'package:e_sankalp/src/const/app_colors.dart';
 import 'package:e_sankalp/src/const/app_font.dart';
+import 'package:e_sankalp/src/controllers/temple_controller.dart';
 import 'package:e_sankalp/src/view/home_view/home_page_with_navigation.dart';
 import 'package:e_sankalp/src/view/home_view/notification_screen.dart';
 import 'package:e_sankalp/src/widgets/temple_widgets/temples_card_widget.dart';
@@ -16,6 +17,15 @@ class TemplesView extends StatefulWidget {
 
 class _TemplesViewState extends State<TemplesView> {
   int _currentPage = 0;
+
+  final templeController = Get.find<TempleController>();
+
+  @override
+  void initState() {
+    super.initState();
+    templeController.getTempleList();
+  }
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -63,7 +73,7 @@ class _TemplesViewState extends State<TemplesView> {
                 child: Padding(
                   padding: const EdgeInsets.only(left: 10, right: 10),
                   child: Row(
-                    children: [
+                    children: const [
                       Expanded(
                         child: TextField(
                           decoration: InputDecoration.collapsed(
@@ -79,195 +89,171 @@ class _TemplesViewState extends State<TemplesView> {
           ],
         ),
       ),
-      body: ListView(
-        children: [
-          TempleCard(
-            image: "assets/images/temple_image (3).png",
-            titile: "Sri Kamachi Temple",
-            place: "Madhurai, Tamilnadu, India",
-            height: 200,
-            width: size.width,
-            titleStyle: primaryFont.copyWith(
-                color: Colors.black, fontWeight: FontWeight.w600, fontSize: 19),
-            placeStyle: primaryFont.copyWith(
-                color: Colors.black, fontWeight: FontWeight.w500, fontSize: 12),
-          ),
-          const SizedBox(
-            height: 15,
-          ),
-          Container(
-            height: 126,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              shrinkWrap: true,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 3, top: 3),
-                  child: TempleCard(
-                    image: "assets/images/temple_image (8).png",
-                    titile: "Sri Kumaran Temple",
-                    place: "Chennai, Tamilnadu, India",
-                    height: 120,
-                    width: 150,
-                    titleStyle: primaryFont.copyWith(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 13),
-                    placeStyle: primaryFont.copyWith(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 8),
-                    titleHeight: 35,
-                    radius: 6,
-                  ),
+      body: GetBuilder<TempleController>(builder: (_) {
+        return ListView(
+          children: [
+            for (int i = 0; i < templeController.templeDataList.length; i++)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 15),
+                child: Column(
+                  children: [
+                    TempleCard(
+                      image: templeController.templeDataList[i].l1.first.image1 ??
+                          "https://static.india.com/wp-content/uploads/2018/08/Amritsar-Main-1.jpg",
+                      titile:
+                          templeController.templeDataList[i].l1.first.templeName,
+                      place: templeController.templeDataList[i].l1.first.address,
+                      height: 200,
+                      width: size.width,
+                      titleStyle: primaryFont.copyWith(
+                          color: Colors.black,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 19),
+                      placeStyle: primaryFont.copyWith(
+                          color: Colors.black,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 12),
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    Container(
+                      height: 126,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        shrinkWrap: true,
+                        itemCount: templeController.templeDataList[i].l2.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.only(
+                                bottom: 3, top: 3, right: 5),
+                            child: TempleCard(
+                              image: templeController
+                                      .templeDataList[i].l2[index].image1 ??
+                                  "https://static.india.com/wp-content/uploads/2018/08/Amritsar-Main-1.jpg",
+                              titile: templeController
+                                  .templeDataList[i].l2[index].templeName,
+                              place: templeController
+                                  .templeDataList[i].l2[index].address,
+                              height: 120,
+                              width: 150,
+                              titleStyle: primaryFont.copyWith(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 13),
+                              placeStyle: primaryFont.copyWith(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 8),
+                              titleHeight: 35,
+                              radius: 6,
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ],
                 ),
-                const SizedBox(
-                  width: 5,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 3, top: 3),
-                  child: TempleCard(
-                    image: "assets/images/temple_image (4).png",
-                    titile: "Sri Kamachi Temple",
-                    place: "Erode, Tamilnadu, India",
-                    height: 120,
-                    width: 150,
-                    titleStyle: primaryFont.copyWith(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 13),
-                    placeStyle: primaryFont.copyWith(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 8),
-                    titleHeight: 35,
-                    radius: 6,
-                  ),
-                ),
-                const SizedBox(
-                  width: 5,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 3, top: 3),
-                  child: TempleCard(
-                    image: "assets/images/temple_image (1).png",
-                    titile: "Thanjavur Temple",
-                    place: "Tamilnadu, India",
-                    height: 120,
-                    width: 150,
-                    titleStyle: primaryFont.copyWith(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 13),
-                    placeStyle: primaryFont.copyWith(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 8),
-                    titleHeight: 35,
-                    radius: 6,
-                  ),
-                ),
-              ],
-            ),
-          ), //horizontal list view ending
+              ), //horizontal list view ending
 
-          const SizedBox(
-            height: 15,
-          ),
-          TempleCard(
-            image: "assets/images/temple_image (5).png",
-            titile: "Murugan Temple",
-            place: "Chennai, Tamilnadu, India",
-            height: 200,
-            width: size.width,
-            titleStyle: primaryFont.copyWith(
-                color: Colors.black, fontWeight: FontWeight.w600, fontSize: 19),
-            placeStyle: primaryFont.copyWith(
-                color: Colors.black, fontWeight: FontWeight.w500, fontSize: 12),
-          ),
-          const SizedBox(
-            height: 15,
-          ),
-          Container(
-            height: 126,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              shrinkWrap: true,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 3, top: 3),
-                  child: TempleCard(
-                    image: "assets/images/temple_image (8).png",
-                    titile: "Sri Kumaran Temple",
-                    place: "Chennai, Tamilnadu, India",
-                    height: 120,
-                    width: 150,
-                    titleStyle: primaryFont.copyWith(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 13),
-                    placeStyle: primaryFont.copyWith(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 8),
-                    titleHeight: 35,
-                    radius: 6,
-                  ),
-                ),
-                const SizedBox(
-                  width: 5,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 3, top: 3),
-                  child: TempleCard(
-                    image: "assets/images/temple_image (4).png",
-                    titile: "Sri Kamachi Temple",
-                    place: "Erode, Tamilnadu, India",
-                    height: 120,
-                    width: 150,
-                    titleStyle: primaryFont.copyWith(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 13),
-                    placeStyle: primaryFont.copyWith(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 8),
-                    titleHeight: 35,
-                    radius: 6,
-                  ),
-                ),
-                const SizedBox(
-                  width: 5,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 3, top: 3),
-                  child: TempleCard(
-                    image: "assets/images/temple_image (1).png",
-                    titile: "Thanjavur Temple",
-                    place: "Tamilnadu, India",
-                    height: 120,
-                    width: 150,
-                    titleStyle: primaryFont.copyWith(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 13),
-                    placeStyle: primaryFont.copyWith(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 8),
-                    titleHeight: 35,
-                    radius: 6,
-                  ),
-                ),
-              ],
-            ),
-          ), //horizontal list view ending
-          const SizedBox(
-            height: 60,
-          ),
-        ],
-      ),
+            // const SizedBox(
+            //   height: 15,
+            // ),
+            // TempleCard(
+            //   image: "assets/images/temple_image (5).png",
+            //   titile: "Murugan Temple",
+            //   place: "Chennai, Tamilnadu, India",
+            //   height: 200,
+            //   width: size.width,
+            //   titleStyle: primaryFont.copyWith(
+            //       color: Colors.black, fontWeight: FontWeight.w600, fontSize: 19),
+            //   placeStyle: primaryFont.copyWith(
+            //       color: Colors.black, fontWeight: FontWeight.w500, fontSize: 12),
+            // ),
+            // const SizedBox(
+            //   height: 15,
+            // ),
+            // Container(
+            //   height: 126,
+            //   child: ListView(
+            //     scrollDirection: Axis.horizontal,
+            //     shrinkWrap: true,
+            //     children: [
+            //       Padding(
+            //         padding: const EdgeInsets.only(bottom: 3, top: 3),
+            //         child: TempleCard(
+            //           image: "assets/images/temple_image (8).png",
+            //           titile: "Sri Kumaran Temple",
+            //           place: "Chennai, Tamilnadu, India",
+            //           height: 120,
+            //           width: 150,
+            //           titleStyle: primaryFont.copyWith(
+            //               color: Colors.black,
+            //               fontWeight: FontWeight.w600,
+            //               fontSize: 13),
+            //           placeStyle: primaryFont.copyWith(
+            //               color: Colors.black,
+            //               fontWeight: FontWeight.w500,
+            //               fontSize: 8),
+            //           titleHeight: 35,
+            //           radius: 6,
+            //         ),
+            //       ),
+            //       const SizedBox(
+            //         width: 5,
+            //       ),
+            //       Padding(
+            //         padding: const EdgeInsets.only(bottom: 3, top: 3),
+            //         child: TempleCard(
+            //           image: "assets/images/temple_image (4).png",
+            //           titile: "Sri Kamachi Temple",
+            //           place: "Erode, Tamilnadu, India",
+            //           height: 120,
+            //           width: 150,
+            //           titleStyle: primaryFont.copyWith(
+            //               color: Colors.black,
+            //               fontWeight: FontWeight.w600,
+            //               fontSize: 13),
+            //           placeStyle: primaryFont.copyWith(
+            //               color: Colors.black,
+            //               fontWeight: FontWeight.w500,
+            //               fontSize: 8),
+            //           titleHeight: 35,
+            //           radius: 6,
+            //         ),
+            //       ),
+            //       const SizedBox(
+            //         width: 5,
+            //       ),
+            //       Padding(
+            //         padding: const EdgeInsets.only(bottom: 3, top: 3),
+            //         child: TempleCard(
+            //           image: "assets/images/temple_image (1).png",
+            //           titile: "Thanjavur Temple",
+            //           place: "Tamilnadu, India",
+            //           height: 120,
+            //           width: 150,
+            //           titleStyle: primaryFont.copyWith(
+            //               color: Colors.black,
+            //               fontWeight: FontWeight.w600,
+            //               fontSize: 13),
+            //           placeStyle: primaryFont.copyWith(
+            //               color: Colors.black,
+            //               fontWeight: FontWeight.w500,
+            //               fontSize: 8),
+            //           titleHeight: 35,
+            //           radius: 6,
+            //         ),
+            //       ),
+            //     ],
+            //   ),
+            // ), //horizontal list view ending
+            // const SizedBox(
+            //   height: 60,
+            // ),
+          ],
+        );
+      }),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
             gradient: LinearGradient(colors: [secondaryColor, primaryColor])),

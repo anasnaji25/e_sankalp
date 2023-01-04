@@ -58,7 +58,7 @@ class TempleCard extends StatelessWidget {
                         topRight: Radius.circular(radius),
                       ),
                       image: DecorationImage(
-                          image: AssetImage(image),
+                          image: NetworkImage(image),
                           fit: BoxFit.cover)),
                 ),
               ),

@@ -42,6 +42,7 @@ class Member {
     required this.mobileNumber,
     required this.createdAt,
     required this.updatedAt,
+    this.isSelected = false,
   });
 
   int id;
@@ -50,6 +51,7 @@ class Member {
   String nakshtraType;
   String dob;
   String mobileNumber;
+  bool isSelected;
   DateTime createdAt;
   DateTime updatedAt;
 

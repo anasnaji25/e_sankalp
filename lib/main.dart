@@ -17,6 +17,7 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+  
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: primaryColor,
       ),
-      home: SplashScreens(),
+      home:  const SplashScreens(),
     );
   }
 }
