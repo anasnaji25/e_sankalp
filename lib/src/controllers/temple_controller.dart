@@ -2,10 +2,12 @@ import 'package:e_sankalp/src/models/gat_family_members_model.dart';
 import 'package:e_sankalp/src/models/my_booking_temples_model.dart';
 import 'package:e_sankalp/src/models/temple_detail_model.dart';
 import 'package:e_sankalp/src/models/temple_list_model.dart';
+import 'package:e_sankalp/src/services/network/admin_bookings_api_services/get_admin_bookings_api_services.dart';
 import 'package:e_sankalp/src/services/network/profile_api_services/get_family_members.dart';
 import 'package:e_sankalp/src/services/network/temple_api_services/get_temple_details_by_id.dart';
 import 'package:e_sankalp/src/services/network/temple_api_services/get_temple_list_api.dart';
 import 'package:e_sankalp/src/services/network/temple_api_services/temple_pooja_booking_api_services.dart';
+import 'package:e_sankalp/src/view/home_view/home_page_with_navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -27,22 +29,24 @@ class TempleController extends GetxController {
   List<TempleSpListModel> templeDataList = [];
   List<TempleDetail> templeDetails = [];
 
-  
   List<Member> membersList = [];
 
   List<BookingList> bookingList = [];
+  List<BookingList> adminBookingList = [];
 
   GetTepleListServicesApi getTempleListApi = GetTepleListServicesApi();
 
   GetTemplesByidApiServices getTempleByIdApi = GetTemplesByidApiServices();
   GetFamilyServicesApi getFamilyServicesApi = GetFamilyServicesApi();
 
-
   GetmyBookedTemplesAPIServices getMyBookedTemplesAPIServices =
       GetmyBookedTemplesAPIServices();
 
   TempleBookingApiServices templeBookingApiServices =
       TempleBookingApiServices();
+
+  GetAdminBookedTemplesAPIServices getAdminBookedTemplesAPIServices =
+      GetAdminBookedTemplesAPIServices();
 
   getTempleList() async {
     dio.Response<dynamic> response = await getTempleListApi.getTempleList();
@@ -96,7 +100,8 @@ class TempleController extends GetxController {
     update();
   }
 
-  getTempleDetailsById({required String id}) async {
+  Future<List<TempleDetail>> getTempleDetailsById({required String id}) async {
+    templeDetails.clear();
     dio.Response<dynamic> response = await getTempleByIdApi.getTempleById(id);
 
     if (response.statusCode == 200) {
@@ -105,16 +110,18 @@ class TempleController extends GetxController {
       templeDetails = templeDetailsModel.templeDetails;
       update();
     }
+
+    return templeDetails;
   }
 
   bookPooja(
       {required String templeId,
-      time,
-      session,
-      preiestAmount,
-      offerAmount,
-      totalAmount,
-      poojaDate,
+      required String time,
+      required String session,
+      required String preiestAmount,
+      required String offerAmount,
+      required String totalAmount,
+      required DateTime poojaDate,
       required List<dynamic> memeberList}) async {
     dio.Response<dynamic> response = await templeBookingApiServices.bookTemple(
         templeId,
@@ -142,6 +149,9 @@ class TempleController extends GetxController {
         dismissDirection: DismissDirection.horizontal,
         forwardAnimationCurve: Curves.easeOutBack,
       );
+      Get.offAll(() => HomePageWithNavigation(
+            index: 0,
+          ));
     }
   }
 
@@ -156,7 +166,6 @@ class TempleController extends GetxController {
     }
   }
 
-
   getFamilyMembers() async {
     dio.Response<dynamic> response =
         await getFamilyServicesApi.getFamilyMembers();
@@ -165,6 +174,20 @@ class TempleController extends GetxController {
       FamilyMembersModel familyMembersModel =
           FamilyMembersModel.fromJson(response.data);
       membersList = familyMembersModel.member;
+      update();
+    }
+  }
+
+  getAdminBookingList() async {
+     print(".............................................");
+    dio.Response<dynamic> response =
+        await getAdminBookedTemplesAPIServices.getAdminBookedTemples();
+    print(".............................................");
+    if (response.statusCode == 200) {
+      MyBookingsModel myBookingsModel = MyBookingsModel.fromJson(response.data);
+      adminBookingList = myBookingsModel.bookingList;
+      print(".............................................");
+      print(adminBookingList.length);
       update();
     }
   }

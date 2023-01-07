@@ -1,10 +1,14 @@
 import 'package:e_sankalp/src/const/app_font.dart';
+import 'package:e_sankalp/src/controllers/temple_controller.dart';
+import 'package:e_sankalp/src/models/temple_detail_model.dart';
+import 'package:e_sankalp/src/models/temple_list_model.dart';
 import 'package:e_sankalp/src/view/temples_view/temple_details_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 
 class TempleCard extends StatelessWidget {
+  int id;
+  TempleData templeData;
   String image;
   String titile;
   String place;
@@ -16,13 +20,15 @@ class TempleCard extends StatelessWidget {
   double radius;
   TempleCard(
       {super.key,
+      required this.templeData,
       required this.image,
+      required this.id,
       required this.place,
       required this.height,
       required this.width,
       required this.placeStyle,
       required this.titleStyle,
-       this.radius = 10,
+      this.radius = 10,
       this.titleHeight = 55,
       required this.titile});
 
@@ -32,12 +38,17 @@ class TempleCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(left: 10, right: 10),
       child: InkWell(
-        onTap: (){
-          Get.to(()=> TempleDetailsView(
-            image: image,
-            title: titile,
-            place: place,
-          ));
+        onTap: () async {
+          List<TempleDetail> _templeDetails = await Get.find<TempleController>()
+              .getTempleDetailsById(id: id.toString());
+
+          Get.to(() => TempleDetailsView(
+            templeData: templeData,
+            templeDetails: _templeDetails,
+                image: image,
+                title: titile,
+                place: place,
+              ));
         },
         child: Container(
           width: width,
@@ -52,14 +63,13 @@ class TempleCard extends StatelessWidget {
             children: [
               Expanded(
                 child: Container(
-                  decoration:  BoxDecoration(
-                      borderRadius:  BorderRadius.only(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(radius),
                         topRight: Radius.circular(radius),
                       ),
                       image: DecorationImage(
-                          image: NetworkImage(image),
-                          fit: BoxFit.cover)),
+                          image: NetworkImage(image), fit: BoxFit.cover)),
                 ),
               ),
               Row(
@@ -71,14 +81,8 @@ class TempleCard extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            titile,
-                            style: titleStyle
-                          ),
-                          Text(
-                            place,
-                            style: placeStyle
-                          )
+                          Text(titile, style: titleStyle),
+                          Text(place, style: placeStyle)
                         ],
                       ),
                     ),

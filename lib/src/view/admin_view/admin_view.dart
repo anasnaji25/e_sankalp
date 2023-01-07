@@ -1,6 +1,8 @@
 import 'package:bottom_bar/bottom_bar.dart';
+import 'package:date_format/date_format.dart';
 import 'package:e_sankalp/src/const/app_colors.dart';
 import 'package:e_sankalp/src/const/app_font.dart';
+import 'package:e_sankalp/src/controllers/temple_controller.dart';
 import 'package:e_sankalp/src/view/home_view/home_page_with_navigation.dart';
 import 'package:e_sankalp/src/view/home_view/notification_screen.dart';
 import 'package:flutter/material.dart';
@@ -15,190 +17,126 @@ class AdminView extends StatefulWidget {
 
 class _AdminViewState extends State<AdminView> {
   int _currentPage = 0;
+  final templeController = Get.find<TempleController>();
+
+  @override
+  void initState() {
+    super.initState();
+    templeController.getAdminBookingList();
+  }
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        elevation: 0,
-        leading: const Icon(
-          Icons.arrow_back,
-          color: Colors.black,
-        ),
-        title: Text(
-          "Admin",
-          style: primaryFont.copyWith(
-              color: Colors.black, fontWeight: FontWeight.w600),
-        ),
         backgroundColor: Colors.white,
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 15),
-            child: InkWell(
-              onTap: () {
-                Get.to(() => NotificationScreen());
+        appBar: AppBar(
+          elevation: 0,
+          leading: const Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+          ),
+          title: Text(
+            "Admin",
+            style: primaryFont.copyWith(
+                color: Colors.black, fontWeight: FontWeight.w600),
+          ),
+          backgroundColor: Colors.white,
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 15),
+              child: InkWell(
+                onTap: () {
+                  Get.to(() => NotificationScreen());
+                },
+                child: Icon(
+                  Icons.notifications,
+                  color: secondaryColor,
+                ),
+              ),
+            )
+          ],
+        ),
+        body: GetBuilder<TempleController>(
+          builder: (_) {
+            return ListView.builder(
+              itemCount: templeController.adminBookingList.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.only(left: 15, right: 15),
+                  child: Container(
+                    height: 130,
+                    width: size.width,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                              blurRadius: 2, color: Colors.grey.withOpacity(0.4))
+                        ]),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Container(
+                            width: 100,
+                            height: 100,
+                            child: Image.network(templeController.adminBookingList[index].temples.image1,fit: BoxFit.cover,)),
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              templeController.adminBookingList[index].temples.templeName,
+                              style: primaryFont.copyWith(
+                                  color: Colors.black87,
+                                  fontWeight: FontWeight.w600),
+                            ),
+                            const SizedBox(
+                              height: 3,
+                            ),
+                            Text(
+                              templeController.adminBookingList[index].session,
+                              style: primaryFont.copyWith(
+                                  color: Colors.black87,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 12),
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Text(
+                              "₹${templeController.adminBookingList[index].totalAmount}",
+                              style: primaryFont.copyWith(
+                                  color: primaryColor,
+                                  fontWeight: FontWeight.w900,
+                                  fontSize: 20),
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Text(
+                              formatDate(templeController.adminBookingList[index].poojaDate, [M," ",dd,",",yyyy]),
+                              style: primaryFont.copyWith(
+                                  color: Colors.green,
+                                  fontWeight: FontWeight.w900,
+                                  fontSize: 20),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                );
               },
-              child: Icon(
-                Icons.notifications,
-                color: secondaryColor,
-              ),
-            ),
-          )
-        ],
-      ),
-      body: ListView(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 15),
-            child: Text(
-              "Customer Booking's",
-              style: primaryFont.copyWith(
-                fontSize: 16,
-              ),
-            ),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 15, right: 15),
-            child: Container(
-              height: 130,
-              width: size.width,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                        blurRadius: 2, color: Colors.grey.withOpacity(0.4))
-                  ]),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Image.asset("assets/images/admin_bookin (4).png"),
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        "Hindu Temple in Tamil Nadu",
-                        style: primaryFont.copyWith(
-                            color: Colors.black87, fontWeight: FontWeight.w600),
-                      ),
-                      const SizedBox(
-                        height: 3,
-                      ),
-                      Text(
-                        "Raja Ram",
-                        style: primaryFont.copyWith(
-                            color: Colors.black87,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 12),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Text(
-                        "₹ 61.00",
-                        style: primaryFont.copyWith(
-                            color: primaryColor,
-                            fontWeight: FontWeight.w900,
-                            fontSize: 20),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Text(
-                        "Jan 03,2023",
-                        style: primaryFont.copyWith(
-                            color: Colors.green,
-                            fontWeight: FontWeight.w900,
-                            fontSize: 20),
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            ),
-          ),
-           const SizedBox(
-            height: 20,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 15, right: 15),
-            child: Container(
-              height: 130,
-              width: size.width,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                        blurRadius: 2, color: Colors.grey.withOpacity(0.4))
-                  ]),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Image.asset("assets/images/admin_bookin (3).png"),
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        "Vinayanagar Temple",
-                        style: primaryFont.copyWith(
-                            color: Colors.black87, fontWeight: FontWeight.w600),
-                      ),
-                      const SizedBox(
-                        height: 3,
-                      ),
-                      Text(
-                        "Raja Ram",
-                        style: primaryFont.copyWith(
-                            color: Colors.black87,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 12),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Text(
-                        "₹ 99.00",
-                        style: primaryFont.copyWith(
-                            color: primaryColor,
-                            fontWeight: FontWeight.w900,
-                            fontSize: 20),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Text(
-                        "Jan 01,2023",
-                        style: primaryFont.copyWith(
-                            color: Colors.green,
-                            fontWeight: FontWeight.w900,
-                            fontSize: 20),
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-      bottomNavigationBar: Container(
+            );
+          }
+        ),
+        bottomNavigationBar: Container(
           decoration: BoxDecoration(
               gradient: LinearGradient(colors: [secondaryColor, primaryColor])),
           child: BottomBar(
@@ -261,7 +199,6 @@ class _AdminViewState extends State<AdminView> {
                   inactiveColor: Colors.white.withOpacity(0.7)),
             ],
           ),
-        )
-    );
+        ));
   }
 }

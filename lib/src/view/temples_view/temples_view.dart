@@ -98,6 +98,8 @@ class _TemplesViewState extends State<TemplesView> {
                 child: Column(
                   children: [
                     TempleCard(
+                      templeData: templeController.templeDataList[i].l1.first,
+                      id: templeController.templeDataList[i].l1.first.id,
                       image: templeController.templeDataList[i].l1.first.image1 ??
                           "https://static.india.com/wp-content/uploads/2018/08/Amritsar-Main-1.jpg",
                       titile:
@@ -119,6 +121,7 @@ class _TemplesViewState extends State<TemplesView> {
                     ),
                     Container(
                       height: 126,
+                      alignment: Alignment.centerLeft,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
                         shrinkWrap: true,
@@ -128,6 +131,9 @@ class _TemplesViewState extends State<TemplesView> {
                             padding: const EdgeInsets.only(
                                 bottom: 3, top: 3, right: 5),
                             child: TempleCard(
+                              templeData: templeController.templeDataList[i].l2[index],
+                              id: templeController
+                                  .templeDataList[i].l2[index].id,
                               image: templeController
                                       .templeDataList[i].l2[index].image1 ??
                                   "https://static.india.com/wp-content/uploads/2018/08/Amritsar-Main-1.jpg",

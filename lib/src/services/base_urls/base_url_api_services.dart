@@ -47,5 +47,6 @@ abstract class BaseApiService {
       "https://batechnology.in/sankalpweb/public/api/booking_list";
 
 
+String adminBookingList = "https://batechnology.in/sankalpweb/public/api/admin_booking_list";
       
 }

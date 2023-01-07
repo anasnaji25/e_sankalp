@@ -39,6 +39,11 @@ class AdminRegisterServicesApi extends BaseApiService {
         "archana_ticket3": adminRegisterModel.archanaticket3,
         "archana_ticket4": adminRegisterModel.archanaticket3,
         "archana_ticket5": adminRegisterModel.archanaticket5,
+        "archana_ticket_name1": adminRegisterModel.archanaticketName1,
+        "archana_ticket_name2": adminRegisterModel.archanaticketName2,
+        "archana_ticket_name3": adminRegisterModel.archanaticketName3,
+        "archana_ticket_name4": adminRegisterModel.archanaticketName4,
+        "archana_ticket_name5": adminRegisterModel.archanaticketName5,
         "archana_ticket_vehicle": adminRegisterModel.archanaTicketVehicle,
         "poojari_auth_image": await MultipartFile.fromFile(
             adminRegisterModel.poojariAuthImage.path,

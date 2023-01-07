@@ -63,6 +63,11 @@ class _SignupAdminViewState extends State<SignupAdminView> {
   var archanaTicket3TxtCntrl = TextEditingController();
   var archanaTicket4TxtCntrl = TextEditingController();
   var archanaTicket5TxtCntrl = TextEditingController();
+  var archanaTicketName1TxtCntrl = TextEditingController();
+  var archanaTicketName2TxtCntrl = TextEditingController();
+  var archanaTicketName3TxtCntrl = TextEditingController();
+  var archanaTicketName4TxtCntrl = TextEditingController();
+  var archanaTicketName5TxtCntrl = TextEditingController();
   var archanaVeehicleCoastTxtCntrl = TextEditingController();
 
   _selectDate(BuildContext context) async {
@@ -437,15 +442,15 @@ class _SignupAdminViewState extends State<SignupAdminView> {
                                 height: 50,
                                 child: TextField(
                                   readOnly: true,
-                                  onTap: () async{
-                                     final ImagePicker _picker = ImagePicker();
-                                // Pick an image
-                                final XFile? image = await _picker.pickImage(
-                                    source: ImageSource.gallery);
-                                setState(() {
-                                  imageName = image!.path;
-                                  timageName = image.name;
-                                });
+                                  onTap: () async {
+                                    final ImagePicker _picker = ImagePicker();
+                                    // Pick an image
+                                    final XFile? image = await _picker
+                                        .pickImage(source: ImageSource.gallery);
+                                    setState(() {
+                                      imageName = image!.path;
+                                      timageName = image.name;
+                                    });
                                   },
                                   decoration: InputDecoration(
                                       isDense: true,
@@ -788,20 +793,24 @@ class _SignupAdminViewState extends State<SignupAdminView> {
                                           child: Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
-                                            children:  [
+                                            children: [
                                               TextField(
-                                                controller: templeAddressTxtCntrl,
+                                                controller:
+                                                    templeAddressTxtCntrl,
                                                 decoration:
-                                                   const InputDecoration.collapsed(
+                                                    const InputDecoration
+                                                            .collapsed(
                                                         hintText: "Address"),
                                               ),
-                                             const Divider(
+                                              const Divider(
                                                 thickness: 1.5,
                                               ),
                                               TextField(
-                                                controller: templePhoneTxtCntrol,
+                                                controller:
+                                                    templePhoneTxtCntrol,
                                                 decoration:
-                                                   const InputDecoration.collapsed(
+                                                    const InputDecoration
+                                                            .collapsed(
                                                         hintText: "Phone"),
                                               ),
                                               const Divider(
@@ -887,56 +896,263 @@ class _SignupAdminViewState extends State<SignupAdminView> {
                                           child: Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
-                                            children:  [
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Expanded(
+                                                    flex: 3,
+                                                    child: Padding(
+                                                      padding: const EdgeInsets.only(right: 15),
+                                                      child: Column(
+                                                        children: [
+                                                          TextField(
+                                                            controller:
+                                                                archanaTicketName1TxtCntrl,
+                                                            decoration:
+                                                                const InputDecoration
+                                                                        .collapsed(
+                                                                    hintText:
+                                                                        "Pooja 1 Name"),
+                                                          ),
+                                                           const Divider(
+                                                            thickness: 1.5,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Expanded(
+                                                    flex: 2,
+                                                    child: Column(
+                                                      children: [
+                                                        TextField(
+                                                          controller:
+                                                              archanaTicket1TxtCntrl,
+                                                              keyboardType: TextInputType.number,
+                                                          decoration:
+                                                              const InputDecoration
+                                                                      .collapsed(
+                                                                  hintText:
+                                                                      "Amount"),
+                                                        ),
+                                                         const Divider(
+                                                          thickness: 1.5,
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                             
+                                             
+                                             Row(
+                                                children: [
+                                                  Expanded(
+                                                    flex: 3,
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              right: 15),
+                                                      child: Column(
+                                                        children: [
+                                                          TextField(
+                                                            controller:
+                                                                archanaTicketName2TxtCntrl,
+                                                            decoration:
+                                                                const InputDecoration
+                                                                        .collapsed(
+                                                                    hintText:
+                                                                        "Pooja 2 Name"),
+                                                          ),
+                                                          const Divider(
+                                                            thickness: 1.5,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Expanded(
+                                                    flex: 2,
+                                                    child: Column(
+                                                      children: [
+                                                        TextField(
+                                                          controller:
+                                                              archanaTicket2TxtCntrl,
+                                                          keyboardType:
+                                                              TextInputType
+                                                                  .number,
+                                                          decoration:
+                                                              const InputDecoration
+                                                                      .collapsed(
+                                                                  hintText:
+                                                                      "Amount"),
+                                                        ),
+                                                        const Divider(
+                                                          thickness: 1.5,
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                             
+                                             Row(
+                                                children: [
+                                                  Expanded(
+                                                    flex: 3,
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              right: 15),
+                                                      child: Column(
+                                                        children: [
+                                                          TextField(
+                                                            controller:
+                                                                archanaTicketName3TxtCntrl,
+                                                            decoration:
+                                                                const InputDecoration
+                                                                        .collapsed(
+                                                                    hintText:
+                                                                        "Pooja 3 Name"),
+                                                          ),
+                                                          const Divider(
+                                                            thickness: 1.5,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Expanded(
+                                                    flex: 2,
+                                                    child: Column(
+                                                      children: [
+                                                        TextField(
+                                                          controller:
+                                                              archanaTicket3TxtCntrl,
+                                                          keyboardType:
+                                                              TextInputType
+                                                                  .number,
+                                                          decoration:
+                                                              const InputDecoration
+                                                                      .collapsed(
+                                                                  hintText:
+                                                                      "Amount"),
+                                                        ),
+                                                        const Divider(
+                                                          thickness: 1.5,
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              Row(
+                                                children: [
+                                                  Expanded(
+                                                    flex: 3,
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              right: 15),
+                                                      child: Column(
+                                                        children: [
+                                                          TextField(
+                                                            controller:
+                                                                archanaTicketName4TxtCntrl,
+                                                            decoration:
+                                                                const InputDecoration
+                                                                        .collapsed(
+                                                                    hintText:
+                                                                        "Pooja 4 Name"),
+                                                          ),
+                                                          const Divider(
+                                                            thickness: 1.5,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Expanded(
+                                                    flex: 2,
+                                                    child: Column(
+                                                      children: [
+                                                        TextField(
+                                                          controller:
+                                                              archanaTicket4TxtCntrl,
+                                                          keyboardType:
+                                                              TextInputType
+                                                                  .number,
+                                                          decoration:
+                                                              const InputDecoration
+                                                                      .collapsed(
+                                                                  hintText:
+                                                                      "Amount"),
+                                                        ),
+                                                        const Divider(
+                                                          thickness: 1.5,
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              Row(
+                                                children: [
+                                                  Expanded(
+                                                    flex: 3,
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              right: 15),
+                                                      child: Column(
+                                                        children: [
+                                                          TextField(
+                                                            controller:
+                                                                archanaTicketName5TxtCntrl,
+                                                            decoration:
+                                                                const InputDecoration
+                                                                        .collapsed(
+                                                                    hintText:
+                                                                        "Pooja 5 Name"),
+                                                          ),
+                                                          const Divider(
+                                                            thickness: 1.5,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Expanded(
+                                                    flex: 2,
+                                                    child: Column(
+                                                      children: [
+                                                        TextField(
+                                                          controller:
+                                                              archanaTicket5TxtCntrl,
+                                                          keyboardType:
+                                                              TextInputType
+                                                                  .number,
+                                                          decoration:
+                                                              const InputDecoration
+                                                                      .collapsed(
+                                                                  hintText:
+                                                                      "Amount"),
+                                                        ),
+                                                        const Divider(
+                                                          thickness: 1.5,
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            
                                               TextField(
-                                                controller: archanaTicket1TxtCntrl,
+                                                controller:
+                                                    archanaVeehicleCoastTxtCntrl,
                                                 decoration:
-                                                  const  InputDecoration.collapsed(
-                                                        hintText: "Pooja 1"),
-                                              ),
-                                             const Divider(
-                                                thickness: 1.5,
-                                              ),
-                                              TextField(
-                                                controller: archanaTicket2TxtCntrl,
-                                                decoration:
-                                                  const  InputDecoration.collapsed(
-                                                        hintText: "Pooja 2"),
-                                              ),
-                                            const   Divider(
-                                                thickness: 1.5,
-                                              ),
-                                              TextField(
-                                                controller: archanaTicket3TxtCntrl,
-                                                decoration:
-                                                    const InputDecoration.collapsed(
-                                                        hintText: "Pooja 3"),
-                                              ),
-                                             const Divider(
-                                                thickness: 1.5,
-                                              ),
-                                              TextField(
-                                                controller: archanaTicket4TxtCntrl,
-                                                decoration:
-                                                   const InputDecoration.collapsed(
-                                                        hintText: "Pooja 4"),
-                                              ),
-                                            const  Divider(
-                                                thickness: 1.5,
-                                              ),
-                                              TextField(
-                                                controller: archanaTicket5TxtCntrl,
-                                                decoration:
-                                                   const InputDecoration.collapsed(
-                                                        hintText: "Pooja 5"),
-                                              ),
-                                           const   Divider(
-                                                thickness: 1.5,
-                                              ),
-                                              TextField(
-                                                controller: archanaVeehicleCoastTxtCntrl,
-                                                decoration:
-                                                  const  InputDecoration.collapsed(
+                                                    const InputDecoration
+                                                            .collapsed(
                                                         hintText: "vehicle"),
                                               ),
                                               const Divider(
@@ -1024,6 +1240,16 @@ class _SignupAdminViewState extends State<SignupAdminView> {
                                               templeAddressTxtCntrl.text,
                                           templePhone:
                                               templePhoneTxtCntrol.text,
+                                              archanaticketName1: archanaTicketName1TxtCntrl.text,
+                                      archanaticketName2:
+                                          archanaTicketName2TxtCntrl.text,
+                                              archanaticketName3:
+                                          archanaTicketName3TxtCntrl.text,
+                                      archanaticketName4:
+                                          archanaTicketName4TxtCntrl.text,
+                                      archanaticketName5:
+                                          archanaTicketName5TxtCntrl.text,
+
                                           archanaticket1:
                                               archanaTicket1TxtCntrl.text,
                                           archanaticket2:
@@ -1041,8 +1267,8 @@ class _SignupAdminViewState extends State<SignupAdminView> {
                                   authController.registerAdmin(
                                       adminRegisterModel: adminRegisterModel,
                                       registerModel: widget.registerModel);
-                                }else{
-                                   Get.snackbar(
+                                } else {
+                                  Get.snackbar(
                                     "Fill All the Fields",
                                     "Please fill all the fields",
                                     icon: const Icon(Icons.error_outline,
@@ -1050,9 +1276,9 @@ class _SignupAdminViewState extends State<SignupAdminView> {
                                     snackPosition: SnackPosition.BOTTOM,
                                     backgroundColor: Colors.red,
                                     borderRadius: 20,
-                                    margin: EdgeInsets.all(15),
+                                    margin: const EdgeInsets.all(15),
                                     colorText: Colors.white,
-                                    duration: Duration(seconds: 3),
+                                    duration: const Duration(seconds: 3),
                                     isDismissible: true,
                                     dismissDirection:
                                         DismissDirection.horizontal,

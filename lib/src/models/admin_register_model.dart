@@ -21,6 +21,11 @@ class AdminRegisterModel {
   String templeUPI;
   String templeAddress;
   String templePhone;
+   String archanaticketName1;
+  String archanaticketName2;
+  String archanaticketName3;
+  String archanaticketName4;
+  String archanaticketName5;
   String archanaticket1;
   String archanaticket2;
   String archanaticket3;
@@ -49,6 +54,11 @@ class AdminRegisterModel {
       required this.templeUPI,
       required this.templeAddress,
       required this.templePhone,
+      required this.archanaticketName1,
+      required this.archanaticketName2,
+      required this.archanaticketName3,
+      required this.archanaticketName4,
+      required this.archanaticketName5,
       required this.archanaticket1,
       required this.archanaticket2,
       required this.archanaticket3,

@@ -1,4 +1,5 @@
 import 'package:e_sankalp/src/controllers/auth_controller.dart';
+import 'package:e_sankalp/src/controllers/temple_controller.dart';
 import 'package:e_sankalp/src/models/add_family_member_api.dart';
 import 'package:e_sankalp/src/models/gat_family_members_model.dart';
 import 'package:e_sankalp/src/models/profile_models.dart';
@@ -103,6 +104,7 @@ class ProfileController extends GetxController {
         forwardAnimationCurve: Curves.easeOutBack,
       );
       getFamilyMembers();
+      Get.find<TempleController>().getFamilyMembers();
     }
   }
 

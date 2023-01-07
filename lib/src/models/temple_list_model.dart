@@ -124,6 +124,7 @@ class TempleData {
     required this.phone,
     required this.createdAt,
     required this.updatedAt,
+    required this.poojas,
   });
 
   int id;
@@ -155,12 +156,12 @@ class TempleData {
   String phone;
   DateTime createdAt;
   DateTime updatedAt;
+  Poojas poojas;
 
   factory TempleData.fromJson(Map<String, dynamic> json) => TempleData(
         id: json["id"],
         templeName: json["temple_name"],
-        maleDeityName:
-            json["male_deity_name"] ?? "",
+        maleDeityName: json["male_deity_name"] ?? "",
         maleGodName1: json["male_god_name1"],
         maleGodName2: json["male_god_name2"],
         maleGodName3: json["male_god_name3"],
@@ -168,11 +169,9 @@ class TempleData {
         femaleGodName1: json["female_god_name1"],
         femaleGodName2: json["female_god_name2"],
         femaleGodName3: json["female_god_name3"],
-        otherDeityName:
-            json["other_deity_name"] ?? "",
+        otherDeityName: json["other_deity_name"] ?? "",
         planetSpeciality: json["planet_speciality"],
-        templeCategory:
-            json["temple_category"] ?? "",
+        templeCategory: json["temple_category"] ?? "",
         morningOpenTime: json["morning_open_time"] ?? "",
         morningCloseTime: json["morning_close_time"] ?? "",
         eveningOpenTime: json["evening_open_time"] ?? "",
@@ -184,18 +183,18 @@ class TempleData {
         videos: json["videos"],
         deityName: json["deity_name"],
         hrnc: json["hrnc"] ?? "",
-        organisation:
-            json["organisation"] ?? "",
-        address: json["address"]?? "",
+        organisation: json["organisation"] ?? "",
+        address: json["address"] ?? "",
         phone: json["phone"] ?? "",
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
+        poojas: Poojas.fromJson(json["poojas"]),
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
         "temple_name": templeName,
-        "male_deity_name": maleDeityName == null ? null : maleDeityName,
+        "male_deity_name": maleDeityName,
         "male_god_name1": maleGodName1,
         "male_god_name2": maleGodName2,
         "male_god_name3": maleGodName3,
@@ -222,6 +221,86 @@ class TempleData {
         "organisation": organisation == null ? null : organisation,
         "address": address == null ? null : address,
         "phone": phone == null ? null : phone,
+        "created_at": createdAt.toIso8601String(),
+        "updated_at": updatedAt.toIso8601String(),
+      };
+}
+
+class Poojas {
+  Poojas({
+    required this.id,
+    required this.templeId,
+    required this.archanaName,
+    required this.archanaCost,
+    required this.poojaName1,
+    required this.poojaCost1,
+    this.others,
+    required this.poojaName2,
+    required this.poojaCost2,
+    required this.poojaName3,
+    required this.poojaCost3,
+    required this.poojaName4,
+    required this.poojaCost4,
+    required this.poojaName5,
+    required this.poojaCost5,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  int id;
+  String templeId;
+  String archanaName;
+  String archanaCost;
+  String poojaName1;
+  String poojaCost1;
+  dynamic others;
+  String poojaName2;
+  String poojaCost2;
+  String poojaName3;
+  String poojaCost3;
+  String poojaName4;
+  String poojaCost4;
+  String poojaName5;
+  String poojaCost5;
+  DateTime createdAt;
+  DateTime updatedAt;
+
+  factory Poojas.fromJson(Map<String, dynamic> json) => Poojas(
+        id: json["id"],
+        templeId: json["temple_id"],
+        archanaName: json["archana_name"] ?? "null",
+        archanaCost: json["archana_cost"] ?? "null",
+        poojaName1: json["pooja_name1"] ?? "null",
+        poojaCost1: json["pooja_cost1"] ?? "null",
+        others: json["others"],
+        poojaName2: json["pooja_name2"] ?? "null",
+        poojaCost2: json["pooja_cost2"] ?? "null",
+        poojaName3: json["pooja_name3"] ?? "null",
+        poojaCost3: json["pooja_cost3"] ?? "null",
+        poojaName4: json["pooja_name4"] ?? "null",
+        poojaCost4: json["pooja_cost4"] ?? "null",
+        poojaName5: json["pooja_name5"] ?? "null",
+        poojaCost5: json["pooja_cost5"] ?? "null",
+        createdAt: DateTime.parse(json["created_at"]),
+        updatedAt: DateTime.parse(json["updated_at"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "temple_id": templeId,
+        "archana_name": archanaName == null ? null : archanaName,
+        "archana_cost": archanaCost == null ? null : archanaCost,
+        "pooja_name1": poojaName1,
+        "pooja_cost1": poojaCost1,
+        "others": others,
+        "pooja_name2": poojaName2,
+        "pooja_cost2": poojaCost2 == null ? null : poojaCost2,
+        "pooja_name3": poojaName3 == null ? null : poojaName3,
+        "pooja_cost3": poojaCost3 == null ? null : poojaCost3,
+        "pooja_name4": poojaName4 == null ? null : poojaName4,
+        "pooja_cost4": poojaCost4 == null ? null : poojaCost4,
+        "pooja_name5": poojaName5 == null ? null : poojaName5,
+        "pooja_cost5": poojaCost5 == null ? null : poojaCost5,
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
       };

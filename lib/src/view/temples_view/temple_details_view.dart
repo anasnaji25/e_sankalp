@@ -1,5 +1,7 @@
 import 'package:e_sankalp/src/const/app_colors.dart';
 import 'package:e_sankalp/src/const/app_font.dart';
+import 'package:e_sankalp/src/models/temple_detail_model.dart';
+import 'package:e_sankalp/src/models/temple_list_model.dart';
 import 'package:e_sankalp/src/view/home_view/notification_screen.dart';
 import 'package:e_sankalp/src/view/temples_view/pooja_view.dart';
 import 'package:flutter/material.dart';
@@ -10,10 +12,14 @@ class TempleDetailsView extends StatefulWidget {
   String image;
   String title;
   String place;
+  TempleData templeData;
+  List<TempleDetail> templeDetails;
   TempleDetailsView(
       {super.key,
       required this.image,
+      required this.templeData,
       required this.title,
+      required this.templeDetails,
       required this.place});
 
   @override
@@ -42,7 +48,7 @@ class _TempleDetailsViewState extends State<TempleDetailsView> {
             padding: const EdgeInsets.only(right: 15),
             child: InkWell(
               onTap: () {
-                Get.to(() => NotificationScreen());
+                Get.to(() => const NotificationScreen());
               },
               child: Icon(
                 Icons.notifications,
@@ -65,7 +71,7 @@ class _TempleDetailsViewState extends State<TempleDetailsView> {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(13),
                   image: DecorationImage(
-                      image: AssetImage(widget.image), fit: BoxFit.cover)),
+                      image: NetworkImage(widget.image), fit: BoxFit.cover)),
             ),
           ),
           Padding(
@@ -83,10 +89,15 @@ class _TempleDetailsViewState extends State<TempleDetailsView> {
           ),
           Padding(
             padding: const EdgeInsets.only(left: 15, right: 15),
-            child: Text(
-              "The temple started initially as a thatched hut where Murugan's ardent devotee Annaswami Nayakar kept a portrait of the God and worshipped him. The temple was built on the same site as the thatched hut around 1890. He was the founder and the first priest of the temple. The devotees believed his sacred words gave effective solutions to problems, including education, failure in examinations, marriage issues, ailments, and unemployment, among others.",
-              style: primaryFont.copyWith(fontSize: 12),
-            ),
+            child: widget.templeDetails.isEmpty
+                ? Text(
+                    "",
+                    style: primaryFont.copyWith(fontSize: 12),
+                  )
+                : Text(
+                    widget.templeDetails.first.history,
+                    style: primaryFont.copyWith(fontSize: 12),
+                  ),
           ),
           const SizedBox(
             height: 10,
@@ -106,10 +117,15 @@ class _TempleDetailsViewState extends State<TempleDetailsView> {
           ),
           Padding(
             padding: const EdgeInsets.only(left: 15, right: 15),
-            child: Text(
-              "The temple is built on the traditional lines of south Indian temples. The Rajagopuram at the entrance has several stuccos with the legends of the Skanda Purana depicted on them. The Moolavar (main deity) resembles the Palani temple idol and is in standing position.",
-              style: primaryFont.copyWith(fontSize: 12),
-            ),
+            child: widget.templeDetails.isEmpty
+                ? Text(
+                    "",
+                    style: primaryFont.copyWith(fontSize: 12),
+                  )
+                : Text(
+                    widget.templeDetails.first.architecture,
+                    style: primaryFont.copyWith(fontSize: 12),
+                  ),
           ),
           const SizedBox(
             height: 10,
@@ -129,10 +145,15 @@ class _TempleDetailsViewState extends State<TempleDetailsView> {
           ),
           Padding(
             padding: const EdgeInsets.only(left: 15, right: 15),
-            child: Text(
-              "The belief is very strong here that people who cannot undertake the pilgrimage to the Palani temple can visit the Vadapalani temple with their offerings. Palaniandavar showers devotees with his blessings just the same as in Southern Palani. His grace resolves all issues for devotees, and they believe in the power of this sacred temple.",
-              style: primaryFont.copyWith(fontSize: 12),
-            ),
+            child: widget.templeDetails.isEmpty
+                ? Text(
+                    "",
+                    style: primaryFont.copyWith(fontSize: 12),
+                  )
+                : Text(
+                    widget.templeDetails.first.significance,
+                    style: primaryFont.copyWith(fontSize: 12),
+                  ),
           ),
           const SizedBox(
             height: 10,
@@ -152,10 +173,15 @@ class _TempleDetailsViewState extends State<TempleDetailsView> {
           ),
           Padding(
             padding: const EdgeInsets.only(left: 15, right: 15),
-            child: Text(
-              "The temple is maintained and administered by the Hindu Religious and Charitable Endowments Department of the Government of Tamil Nadu.",
-              style: primaryFont.copyWith(fontSize: 12),
-            ),
+            child: widget.templeDetails.isEmpty
+                ? Text(
+                    "",
+                    style: primaryFont.copyWith(fontSize: 12),
+                  )
+                : Text(
+                    widget.templeDetails.first.miscellanous,
+                    style: primaryFont.copyWith(fontSize: 12),
+                  ),
           ),
           const SizedBox(
             height: 15,
@@ -191,7 +217,7 @@ class _TempleDetailsViewState extends State<TempleDetailsView> {
                         width: 7,
                       ),
                       Text(
-                        "Chennai",
+                        widget.templeData.address,
                         style: primaryFont.copyWith(
                             fontSize: 12, fontWeight: FontWeight.w600),
                       )
@@ -222,7 +248,7 @@ class _TempleDetailsViewState extends State<TempleDetailsView> {
                         width: 7,
                       ),
                       Text(
-                        "9857453276",
+                        widget.templeData.phone,
                         style: primaryFont.copyWith(
                             fontSize: 12, fontWeight: FontWeight.w600),
                       )
@@ -238,6 +264,7 @@ class _TempleDetailsViewState extends State<TempleDetailsView> {
                   onTap: () {
                     Get.to(() => PujaBookingView(
                           image: "",
+                           templeData: widget.templeData,
                           place: widget.place,
                           title: widget.title,
                         ));
@@ -246,7 +273,7 @@ class _TempleDetailsViewState extends State<TempleDetailsView> {
                     height: 35,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(7),
-                        color: Color.fromARGB(255, 33, 124, 36)),
+                        color: const Color.fromARGB(255, 33, 124, 36)),
                     alignment: Alignment.center,
                     child: Text(
                       "Booking",
