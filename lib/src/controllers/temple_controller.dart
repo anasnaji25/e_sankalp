@@ -22,7 +22,7 @@ class TempleController extends GetxController {
   RxInt totalAmount = 25.obs;
 
   RxInt pujaIndex = 0.obs;
-
+  RxString pujaName = "".obs;
   RxString timeString = "HH:SS:MM".obs;
   RxString timeSelected = "Morning".obs;
 
@@ -53,7 +53,7 @@ class TempleController extends GetxController {
 
     if (response.statusCode == 200) {
       TempleListModel templeListModel = TempleListModel.fromJson(response.data);
-      makeSeperatedList(templeListModel.temple.data);
+      makeSeperatedList(templeListModel.temple!.data);
     }
   }
 
@@ -119,6 +119,7 @@ class TempleController extends GetxController {
       required String time,
       required String session,
       required String preiestAmount,
+      required String poojaName,
       required String offerAmount,
       required String totalAmount,
       required DateTime poojaDate,
@@ -128,6 +129,7 @@ class TempleController extends GetxController {
         time,
         session,
         preiestAmount,
+        poojaName,
         offerAmount,
         totalAmount,
         poojaDate,
@@ -179,7 +181,7 @@ class TempleController extends GetxController {
   }
 
   getAdminBookingList() async {
-     print(".............................................");
+    print(".............................................");
     dio.Response<dynamic> response =
         await getAdminBookedTemplesAPIServices.getAdminBookedTemples();
     print(".............................................");

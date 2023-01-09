@@ -104,7 +104,7 @@ class _TemplesViewState extends State<TemplesView> {
                           "https://static.india.com/wp-content/uploads/2018/08/Amritsar-Main-1.jpg",
                       titile:
                           templeController.templeDataList[i].l1.first.templeName,
-                      place: templeController.templeDataList[i].l1.first.address,
+                      place: templeController.templeDataList[i].l1.first.address ?? "",
                       height: 200,
                       width: size.width,
                       titleStyle: primaryFont.copyWith(

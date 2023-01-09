@@ -361,7 +361,7 @@ class _SignUpViewState extends State<SignUpView> {
                                           });
                                         }),
                                     Text(
-                                      "Admin",
+                                      "Sankalp",
                                       style: GoogleFonts.lexend().copyWith(
                                           fontSize: 15,
                                           fontWeight: FontWeight.w600),

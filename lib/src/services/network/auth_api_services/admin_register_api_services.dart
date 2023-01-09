@@ -34,16 +34,26 @@ class AdminRegisterServicesApi extends BaseApiService {
         "temple_upi": adminRegisterModel.templeUPI,
         "temple_address": adminRegisterModel.templeAddress,
         "temple_phone": adminRegisterModel.templePhone,
-        "archana_ticket1": adminRegisterModel.archanaticket1,
-        "archana_ticket2": adminRegisterModel.archanaticket2,
-        "archana_ticket3": adminRegisterModel.archanaticket3,
-        "archana_ticket4": adminRegisterModel.archanaticket3,
-        "archana_ticket5": adminRegisterModel.archanaticket5,
-        "archana_ticket_name1": adminRegisterModel.archanaticketName1,
-        "archana_ticket_name2": adminRegisterModel.archanaticketName2,
-        "archana_ticket_name3": adminRegisterModel.archanaticketName3,
-        "archana_ticket_name4": adminRegisterModel.archanaticketName4,
-        "archana_ticket_name5": adminRegisterModel.archanaticketName5,
+        if (adminRegisterModel.archanaticketName1 != "null")
+          "pooja_details[0][pooja_name]": adminRegisterModel.archanaticketName1,
+        if (adminRegisterModel.archanaticketName1 != "null")
+          "pooja_details[0][pooja_cost]": adminRegisterModel.archanaticket1,
+        if (adminRegisterModel.archanaticketName2 != "null")
+          "pooja_details[1][pooja_name]": adminRegisterModel.archanaticketName2,
+        if (adminRegisterModel.archanaticketName2 != "null")
+          "pooja_details[1][pooja_cost]": adminRegisterModel.archanaticket2,
+        if (adminRegisterModel.archanaticketName3 != "null")
+          "pooja_details[2][pooja_name]": adminRegisterModel.archanaticketName3,
+        if (adminRegisterModel.archanaticketName3 != "null")
+          "pooja_details[2][pooja_cost]": adminRegisterModel.archanaticket3,
+        if (adminRegisterModel.archanaticketName4 != "null")
+          "pooja_details[3][pooja_name]": adminRegisterModel.archanaticketName4,
+        if (adminRegisterModel.archanaticketName4 != "null")
+          "pooja_details[3][pooja_cost]": adminRegisterModel.archanaticket4,
+        if (adminRegisterModel.archanaticketName5 != "null")
+          "pooja_details[4][pooja_name]": adminRegisterModel.archanaticketName5,
+        if (adminRegisterModel.archanaticketName5 != "null")
+          "pooja_details[4][pooja_cost]": adminRegisterModel.archanaticket5,
         "archana_ticket_vehicle": adminRegisterModel.archanaTicketVehicle,
         "poojari_auth_image": await MultipartFile.fromFile(
             adminRegisterModel.poojariAuthImage.path,

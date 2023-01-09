@@ -22,7 +22,8 @@ class GetmyBookedTemplesAPIServices extends BaseApiService {
             followRedirects: false,
             validateStatus: (status) {
               return status! <= 500;
-            }),
+            }
+            ),
       );
       print("::::::::<get member>::::::::status code::::::::::::::");
       print(response.statusCode);

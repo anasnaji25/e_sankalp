@@ -368,17 +368,19 @@ class _PujaBookingViewState extends State<PujaBookingView> {
             const SizedBox(
               height: 15,
             ),
-            if (widget.templeData.poojas.poojaName1 != "null")
+            for (int i = 0; i < widget.templeData.poojas.length; i++)
               Padding(
-                padding: const EdgeInsets.only(left: 15, right: 15),
+                padding: const EdgeInsets.only(left: 15, right: 15,bottom: 10),
                 child: InkWell(
                   onTap: () {
-                    templesController.pujaIndex(0);
-                    templesController.priestAmount(0);
+                    templesController.pujaIndex(i);
+                    templesController.priestAmount(i);
+                    templesController
+                        .pujaName(widget.templeData.poojas[i].poojaName);
                     templesController.offeringAmount(
-                        int.parse(widget.templeData.poojas.poojaCost1));
+                        int.parse(widget.templeData.poojas[i].poojaCost));
                     templesController.totalAmount(
-                        int.parse(widget.templeData.poojas.poojaCost1));
+                        int.parse(widget.templeData.poojas[i].poojaCost));
                   },
                   child: Container(
                     height: 50,
@@ -398,7 +400,7 @@ class _PujaBookingViewState extends State<PujaBookingView> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            widget.templeData.poojas.poojaName1,
+                            widget.templeData.poojas[i].poojaName,
                             style: primaryFont.copyWith(
                                 color: Colors.black,
                                 fontSize: 15,
@@ -407,12 +409,12 @@ class _PujaBookingViewState extends State<PujaBookingView> {
                           Row(
                             children: [
                               Text(
-                                "₹${widget.templeData.poojas.poojaCost1}",
+                                "₹${widget.templeData.poojas[i].poojaCost}",
                                 style: primaryFont.copyWith(
                                   color: primaryColor,
                                 ),
                               ),
-                              if (templesController.pujaIndex.value == 0)
+                              if (templesController.pujaIndex.value == i)
                                 Padding(
                                   padding: const EdgeInsets.only(left: 5),
                                   child: Container(
@@ -436,305 +438,305 @@ class _PujaBookingViewState extends State<PujaBookingView> {
                   ),
                 ),
               ),
-            if (widget.templeData.poojas.poojaName1 != "null")
-              const SizedBox(
-                height: 10,
-              ),
-            if (widget.templeData.poojas.poojaName2 != "null" &&
-                widget.templeData.poojas.poojaCost2 != "null")
-              Padding(
-                padding: const EdgeInsets.only(left: 15, right: 15),
-                child: InkWell(
-                  onTap: () {
-                    templesController.pujaIndex(1);
-                    templesController.priestAmount(0);
-                    templesController.offeringAmount(
-                        int.parse(widget.templeData.poojas.poojaCost2));
-                    templesController.totalAmount(
-                        int.parse(widget.templeData.poojas.poojaCost2));
-                  },
-                  child: Container(
-                    height: 50,
-                    width: size.width,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(7),
-                        color: Colors.white,
-                        boxShadow: [
-                          BoxShadow(
-                            blurRadius: 2,
-                            color: Colors.grey.withOpacity(0.6),
-                          )
-                        ]),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 15, right: 15),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            widget.templeData.poojas.poojaName2,
-                            style: primaryFont.copyWith(
-                                color: Colors.black,
-                                fontSize: 15,
-                                fontWeight: FontWeight.w600),
-                          ),
-                          Row(
-                            children: [
-                              Text(
-                                "₹${widget.templeData.poojas.poojaCost2}",
-                                style: primaryFont.copyWith(
-                                  color: primaryColor,
-                                ),
-                              ),
-                              if (templesController.pujaIndex.value == 1)
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 5),
-                                  child: Container(
-                                    height: 15,
-                                    width: 15,
-                                    decoration: BoxDecoration(
-                                        color: primaryColor,
-                                        borderRadius: BorderRadius.circular(7)),
-                                    child: const Icon(
-                                      Icons.check,
-                                      color: Colors.white,
-                                      size: 12,
-                                    ),
-                                  ),
-                                ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            if (widget.templeData.poojas.poojaName2 != "null" &&
-                widget.templeData.poojas.poojaCost2 != "null")
-              const SizedBox(
-                height: 10,
-              ),
-            if (widget.templeData.poojas.poojaName3 != "null" &&
-                widget.templeData.poojas.poojaCost3 != "null")
-              Padding(
-                padding: const EdgeInsets.only(left: 15, right: 15),
-                child: InkWell(
-                  onTap: () {
-                    templesController.pujaIndex(2);
-                    templesController.priestAmount(0);
-                    templesController.offeringAmount(
-                        int.parse(widget.templeData.poojas.poojaCost3));
-                    templesController.totalAmount(
-                        int.parse(widget.templeData.poojas.poojaCost3));
-                  },
-                  child: Container(
-                    height: 50,
-                    width: size.width,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(7),
-                        color: Colors.white,
-                        boxShadow: [
-                          BoxShadow(
-                            blurRadius: 2,
-                            color: Colors.grey.withOpacity(0.6),
-                          )
-                        ]),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 15, right: 15),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            widget.templeData.poojas.poojaName3,
-                            style: primaryFont.copyWith(
-                                color: Colors.black,
-                                fontSize: 15,
-                                fontWeight: FontWeight.w600),
-                          ),
-                          Row(
-                            children: [
-                              Text(
-                                "₹${widget.templeData.poojas.poojaCost3}",
-                                style: primaryFont.copyWith(
-                                  color: primaryColor,
-                                ),
-                              ),
-                              if (templesController.pujaIndex.value == 2)
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 5),
-                                  child: Container(
-                                    height: 15,
-                                    width: 15,
-                                    decoration: BoxDecoration(
-                                        color: primaryColor,
-                                        borderRadius: BorderRadius.circular(7)),
-                                    child: const Icon(
-                                      Icons.check,
-                                      color: Colors.white,
-                                      size: 12,
-                                    ),
-                                  ),
-                                ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            if (widget.templeData.poojas.poojaName3 != "null" &&
-                widget.templeData.poojas.poojaCost3 != "null")
-              const SizedBox(
-                height: 10,
-              ),
-            if (widget.templeData.poojas.poojaName4 != "null" &&
-                widget.templeData.poojas.poojaCost4 != "null")
-              Padding(
-                padding: const EdgeInsets.only(left: 15, right: 15),
-                child: InkWell(
-                  onTap: () {
-                    templesController.pujaIndex(3);
-                    templesController.priestAmount(0);
-                    templesController.offeringAmount(
-                        int.parse(widget.templeData.poojas.poojaCost4));
-                    templesController.totalAmount(
-                        int.parse(widget.templeData.poojas.poojaCost4));
-                  },
-                  child: Container(
-                    height: 50,
-                    width: size.width,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(7),
-                        color: Colors.white,
-                        boxShadow: [
-                          BoxShadow(
-                            blurRadius: 2,
-                            color: Colors.grey.withOpacity(0.6),
-                          )
-                        ]),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 15, right: 15),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            widget.templeData.poojas.poojaName4,
-                            style: primaryFont.copyWith(
-                                color: Colors.black,
-                                fontSize: 15,
-                                fontWeight: FontWeight.w600),
-                          ),
-                          Row(
-                            children: [
-                              Text(
-                                "₹${widget.templeData.poojas.poojaCost4}",
-                                style: primaryFont.copyWith(
-                                  color: primaryColor,
-                                ),
-                              ),
-                              if (templesController.pujaIndex.value == 3)
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 5),
-                                  child: Container(
-                                    height: 15,
-                                    width: 15,
-                                    decoration: BoxDecoration(
-                                        color: primaryColor,
-                                        borderRadius: BorderRadius.circular(7)),
-                                    child: const Icon(
-                                      Icons.check,
-                                      color: Colors.white,
-                                      size: 12,
-                                    ),
-                                  ),
-                                ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            if (widget.templeData.poojas.poojaName4 != "null" &&
-                widget.templeData.poojas.poojaCost4 != "null")
-              const SizedBox(
-                height: 10,
-              ),
-            if (widget.templeData.poojas.poojaName5 != "null" &&
-                widget.templeData.poojas.poojaCost5 != "null")
-              Padding(
-                padding: const EdgeInsets.only(left: 15, right: 15),
-                child: InkWell(
-                  onTap: () {
-                    templesController.pujaIndex(4);
-                    templesController.priestAmount(0);
-                    templesController.offeringAmount(
-                        int.parse(widget.templeData.poojas.poojaCost5));
-                    templesController.totalAmount(
-                        int.parse(widget.templeData.poojas.poojaCost5));
-                  },
-                  child: Container(
-                    height: 50,
-                    width: size.width,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(7),
-                        color: Colors.white,
-                        boxShadow: [
-                          BoxShadow(
-                            blurRadius: 2,
-                            color: Colors.grey.withOpacity(0.6),
-                          )
-                        ]),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 15, right: 15),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            widget.templeData.poojas.poojaName5,
-                            style: primaryFont.copyWith(
-                                color: Colors.black,
-                                fontSize: 15,
-                                fontWeight: FontWeight.w600),
-                          ),
-                          Row(
-                            children: [
-                              Text(
-                                "₹${widget.templeData.poojas.poojaCost5}",
-                                style: primaryFont.copyWith(
-                                  color: primaryColor,
-                                ),
-                              ),
-                              if (templesController.pujaIndex.value == 4)
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 5),
-                                  child: Container(
-                                    height: 15,
-                                    width: 15,
-                                    decoration: BoxDecoration(
-                                        color: primaryColor,
-                                        borderRadius: BorderRadius.circular(7)),
-                                    child: const Icon(
-                                      Icons.check,
-                                      color: Colors.white,
-                                      size: 12,
-                                    ),
-                                  ),
-                                ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            if (widget.templeData.poojas.poojaName5 != "null")
-              const SizedBox(
-                height: 10,
-              ),
+
+            const SizedBox(
+              height: 10,
+            ),
+            // if (widget.templeData.poojas.poojaName2 != "null" &&
+            //     widget.templeData.poojas.poojaCost2 != "null")
+            //   Padding(
+            //     padding: const EdgeInsets.only(left: 15, right: 15),
+            //     child: InkWell(
+            //       onTap: () {
+            //         templesController.pujaIndex(1);
+            //         templesController.priestAmount(0);
+            //         templesController.offeringAmount(
+            //             int.parse(widget.templeData.poojas.poojaCost2));
+            //         templesController.totalAmount(
+            //             int.parse(widget.templeData.poojas.poojaCost2));
+            //       },
+            //       child: Container(
+            //         height: 50,
+            //         width: size.width,
+            //         decoration: BoxDecoration(
+            //             borderRadius: BorderRadius.circular(7),
+            //             color: Colors.white,
+            //             boxShadow: [
+            //               BoxShadow(
+            //                 blurRadius: 2,
+            //                 color: Colors.grey.withOpacity(0.6),
+            //               )
+            //             ]),
+            //         child: Padding(
+            //           padding: const EdgeInsets.only(left: 15, right: 15),
+            //           child: Row(
+            //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //             children: [
+            //               Text(
+            //                 widget.templeData.poojas.poojaName2,
+            //                 style: primaryFont.copyWith(
+            //                     color: Colors.black,
+            //                     fontSize: 15,
+            //                     fontWeight: FontWeight.w600),
+            //               ),
+            //               Row(
+            //                 children: [
+            //                   Text(
+            //                     "₹${widget.templeData.poojas.poojaCost2}",
+            //                     style: primaryFont.copyWith(
+            //                       color: primaryColor,
+            //                     ),
+            //                   ),
+            //                   if (templesController.pujaIndex.value == 1)
+            //                     Padding(
+            //                       padding: const EdgeInsets.only(left: 5),
+            //                       child: Container(
+            //                         height: 15,
+            //                         width: 15,
+            //                         decoration: BoxDecoration(
+            //                             color: primaryColor,
+            //                             borderRadius: BorderRadius.circular(7)),
+            //                         child: const Icon(
+            //                           Icons.check,
+            //                           color: Colors.white,
+            //                           size: 12,
+            //                         ),
+            //                       ),
+            //                     ),
+            //                 ],
+            //               ),
+            //             ],
+            //           ),
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            // if (widget.templeData.poojas.poojaName2 != "null" &&
+            //     widget.templeData.poojas.poojaCost2 != "null")
+            //   const SizedBox(
+            //     height: 10,
+            //   ),
+            // if (widget.templeData.poojas.poojaName3 != "null" &&
+            //     widget.templeData.poojas.poojaCost3 != "null")
+            //   Padding(
+            //     padding: const EdgeInsets.only(left: 15, right: 15),
+            //     child: InkWell(
+            //       onTap: () {
+            //         templesController.pujaIndex(2);
+            //         templesController.priestAmount(0);
+            //         templesController.offeringAmount(
+            //             int.parse(widget.templeData.poojas.poojaCost3));
+            //         templesController.totalAmount(
+            //             int.parse(widget.templeData.poojas.poojaCost3));
+            //       },
+            //       child: Container(
+            //         height: 50,
+            //         width: size.width,
+            //         decoration: BoxDecoration(
+            //             borderRadius: BorderRadius.circular(7),
+            //             color: Colors.white,
+            //             boxShadow: [
+            //               BoxShadow(
+            //                 blurRadius: 2,
+            //                 color: Colors.grey.withOpacity(0.6),
+            //               )
+            //             ]),
+            //         child: Padding(
+            //           padding: const EdgeInsets.only(left: 15, right: 15),
+            //           child: Row(
+            //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //             children: [
+            //               Text(
+            //                 widget.templeData.poojas.poojaName3,
+            //                 style: primaryFont.copyWith(
+            //                     color: Colors.black,
+            //                     fontSize: 15,
+            //                     fontWeight: FontWeight.w600),
+            //               ),
+            //               Row(
+            //                 children: [
+            //                   Text(
+            //                     "₹${widget.templeData.poojas.poojaCost3}",
+            //                     style: primaryFont.copyWith(
+            //                       color: primaryColor,
+            //                     ),
+            //                   ),
+            //                   if (templesController.pujaIndex.value == 2)
+            //                     Padding(
+            //                       padding: const EdgeInsets.only(left: 5),
+            //                       child: Container(
+            //                         height: 15,
+            //                         width: 15,
+            //                         decoration: BoxDecoration(
+            //                             color: primaryColor,
+            //                             borderRadius: BorderRadius.circular(7)),
+            //                         child: const Icon(
+            //                           Icons.check,
+            //                           color: Colors.white,
+            //                           size: 12,
+            //                         ),
+            //                       ),
+            //                     ),
+            //                 ],
+            //               ),
+            //             ],
+            //           ),
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            // if (widget.templeData.poojas.poojaName3 != "null" &&
+            //     widget.templeData.poojas.poojaCost3 != "null")
+            //   const SizedBox(
+            //     height: 10,
+            //   ),
+            // if (widget.templeData.poojas.poojaName4 != "null" &&
+            //     widget.templeData.poojas.poojaCost4 != "null")
+            //   Padding(
+            //     padding: const EdgeInsets.only(left: 15, right: 15),
+            //     child: InkWell(
+            //       onTap: () {
+            //         templesController.pujaIndex(3);
+            //         templesController.priestAmount(0);
+            //         templesController.offeringAmount(
+            //             int.parse(widget.templeData.poojas.poojaCost4));
+            //         templesController.totalAmount(
+            //             int.parse(widget.templeData.poojas.poojaCost4));
+            //       },
+            //       child: Container(
+            //         height: 50,
+            //         width: size.width,
+            //         decoration: BoxDecoration(
+            //             borderRadius: BorderRadius.circular(7),
+            //             color: Colors.white,
+            //             boxShadow: [
+            //               BoxShadow(
+            //                 blurRadius: 2,
+            //                 color: Colors.grey.withOpacity(0.6),
+            //               )
+            //             ]),
+            //         child: Padding(
+            //           padding: const EdgeInsets.only(left: 15, right: 15),
+            //           child: Row(
+            //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //             children: [
+            //               Text(
+            //                 widget.templeData.poojas.poojaName4,
+            //                 style: primaryFont.copyWith(
+            //                     color: Colors.black,
+            //                     fontSize: 15,
+            //                     fontWeight: FontWeight.w600),
+            //               ),
+            //               Row(
+            //                 children: [
+            //                   Text(
+            //                     "₹${widget.templeData.poojas.poojaCost4}",
+            //                     style: primaryFont.copyWith(
+            //                       color: primaryColor,
+            //                     ),
+            //                   ),
+            //                   if (templesController.pujaIndex.value == 3)
+            //                     Padding(
+            //                       padding: const EdgeInsets.only(left: 5),
+            //                       child: Container(
+            //                         height: 15,
+            //                         width: 15,
+            //                         decoration: BoxDecoration(
+            //                             color: primaryColor,
+            //                             borderRadius: BorderRadius.circular(7)),
+            //                         child: const Icon(
+            //                           Icons.check,
+            //                           color: Colors.white,
+            //                           size: 12,
+            //                         ),
+            //                       ),
+            //                     ),
+            //                 ],
+            //               ),
+            //             ],
+            //           ),
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            // if (widget.templeData.poojas.poojaName4 != "null" &&
+            //     widget.templeData.poojas.poojaCost4 != "null")
+            //   const SizedBox(
+            //     height: 10,
+            //   ),
+            // if (widget.templeData.poojas.poojaName5 != "null" &&
+            //     widget.templeData.poojas.poojaCost5 != "null")
+            //   Padding(
+            //     padding: const EdgeInsets.only(left: 15, right: 15),
+            //     child: InkWell(
+            //       onTap: () {
+            //         templesController.pujaIndex(4);
+            //         templesController.priestAmount(0);
+            //         templesController.offeringAmount(
+            //             int.parse(widget.templeData.poojas.poojaCost5));
+            //         templesController.totalAmount(
+            //             int.parse(widget.templeData.poojas.poojaCost5));
+            //       },
+            //       child: Container(
+            //         height: 50,
+            //         width: size.width,
+            //         decoration: BoxDecoration(
+            //             borderRadius: BorderRadius.circular(7),
+            //             color: Colors.white,
+            //             boxShadow: [
+            //               BoxShadow(
+            //                 blurRadius: 2,
+            //                 color: Colors.grey.withOpacity(0.6),
+            //               )
+            //             ]),
+            //         child: Padding(
+            //           padding: const EdgeInsets.only(left: 15, right: 15),
+            //           child: Row(
+            //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //             children: [
+            //               Text(
+            //                 widget.templeData.poojas.poojaName5,
+            //                 style: primaryFont.copyWith(
+            //                     color: Colors.black,
+            //                     fontSize: 15,
+            //                     fontWeight: FontWeight.w600),
+            //               ),
+            //               Row(
+            //                 children: [
+            //                   Text(
+            //                     "₹${widget.templeData.poojas.poojaCost5}",
+            //                     style: primaryFont.copyWith(
+            //                       color: primaryColor,
+            //                     ),
+            //                   ),
+            //                   if (templesController.pujaIndex.value == 4)
+            //                     Padding(
+            //                       padding: const EdgeInsets.only(left: 5),
+            //                       child: Container(
+            //                         height: 15,
+            //                         width: 15,
+            //                         decoration: BoxDecoration(
+            //                             color: primaryColor,
+            //                             borderRadius: BorderRadius.circular(7)),
+            //                         child: const Icon(
+            //                           Icons.check,
+            //                           color: Colors.white,
+            //                           size: 12,
+            //                         ),
+            //                       ),
+            //                     ),
+            //                 ],
+            //               ),
+            //             ],
+            //           ),
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            // if (widget.templeData.poojas.poojaName5 != "null")
+            //   const SizedBox(
+            //     height: 10,
+            //   ),
 
             const SizedBox(
               height: 20,
@@ -849,6 +851,7 @@ class _PujaBookingViewState extends State<PujaBookingView> {
                         offerAmount:
                             templesController.offeringAmount.toString(),
                         poojaDate: date,
+                        poojaName: templesController.pujaName.value,
                         preiestAmount: "0",
                         session: templesController.timeSelected.value,
                         time: timeString,

@@ -1242,24 +1242,23 @@ class _SignupAdminViewState extends State<SignupAdminView> {
                                               templePhoneTxtCntrol.text,
                                               archanaticketName1: archanaTicketName1TxtCntrl.text,
                                       archanaticketName2:
-                                          archanaTicketName2TxtCntrl.text,
+                                          archanaTicketName2TxtCntrl.text.isEmpty ? "null": archanaTicketName2TxtCntrl.text,
                                               archanaticketName3:
-                                          archanaTicketName3TxtCntrl.text,
+                                          archanaTicketName3TxtCntrl.text.isEmpty ? "null": archanaTicketName3TxtCntrl.text,
                                       archanaticketName4:
-                                          archanaTicketName4TxtCntrl.text,
+                                          archanaTicketName4TxtCntrl.text.isEmpty ? "null":archanaTicketName4TxtCntrl.text ,
                                       archanaticketName5:
-                                          archanaTicketName5TxtCntrl.text,
-
+                                          archanaTicketName5TxtCntrl.text.isEmpty ? "null": archanaTicketName5TxtCntrl.text,
                                           archanaticket1:
-                                              archanaTicket1TxtCntrl.text,
+                                              archanaTicket1TxtCntrl.text.isEmpty ? "null": archanaTicket1TxtCntrl.text,
                                           archanaticket2:
-                                              archanaTicket2TxtCntrl.text,
+                                              archanaTicket2TxtCntrl.text.isEmpty ? "null": archanaTicket2TxtCntrl.text,
                                           archanaticket3:
-                                              archanaTicket3TxtCntrl.text,
+                                              archanaTicket3TxtCntrl.text.isEmpty ? "null": archanaTicket3TxtCntrl.text,
                                           archanaticket4:
-                                              archanaTicket4TxtCntrl.text,
+                                              archanaTicket4TxtCntrl.text.isEmpty ? "null": archanaTicket4TxtCntrl.text,
                                           archanaticket5:
-                                              archanaTicket5TxtCntrl.text,
+                                              archanaTicket5TxtCntrl.text.isEmpty ? "null": archanaTicket5TxtCntrl.text,
                                           archanaTicketVehicle:
                                               archanaVeehicleCoastTxtCntrl
                                                   .text);

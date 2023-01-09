@@ -1,49 +1,38 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
-import 'package:e_sankalp/src/const/auth_helpers.dart';
-import 'package:e_sankalp/src/models/support_model.dart';
+import 'package:e_sankalp/src/models/register_model.dart';
 import 'package:e_sankalp/src/services/base_urls/base_url_api_services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class TempleBookingApiServices extends BaseApiService {
-  Future bookTemple(
-      String templeId,
-      String time,
-      String session,
-      String preiestAmount,
-      String poojaName,
-      String offerAmount,
-      String totalAmount,
-      DateTime poojaDate,
-      List<dynamic> memeberList) async {
+import '../../../models/donate_model.dart';
+
+class DonateServicesApi extends BaseApiService {
+  Future donateApi(DonationModel donationModel) async {
     dynamic responseJson;
     try {
       var dio = Dio();
-      final prefs = await SharedPreferences.getInstance();
-      String? authtoken = prefs.getString(authToken);
-      var response = await dio.post(templeBookingURL,
+      var response = await dio.post(registerUrl,
           options: Options(
               headers: {
                 'Accept': 'application/json',
-                'Authorization': 'Bearer $authtoken',
               },
               followRedirects: false,
               validateStatus: (status) {
                 return status! <= 500;
               }),
           data: {
-            "temple_id": templeId,
-            "time": time,
-            "session": session,
-            "pooja_name": poojaName,
-            "priest_amount": preiestAmount,
-            "offer_amount": offerAmount,
-            "total_amount": totalAmount,
-            "pooja_date": "${poojaDate.year}-${poojaDate.month}-${poojaDate.day}",
-            "memberlist": memeberList
+            "donate_id": donationModel.id,
+            "name": donationModel.name,
+            "email": donationModel.emailId,
+            "mobile": donationModel.phoneNumber,
+            "address": donationModel.address,
+            "state": donationModel.state,
+            "country": donationModel.country,
+            "pincode": donationModel.pincode,
+            "is_anonyms": donationModel.isAnonyms,
+            "amount": donationModel.amount
           });
-      print(
-          "::::::::<Temple pooja booking api>::::::::status code::::::::::::::");
+      print("::::::::<Register>::::::::status code::::::::::::::");
       print(response.statusCode);
       print(response.data);
       responseJson = response;

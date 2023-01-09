@@ -1,12 +1,14 @@
 import 'package:e_sankalp/src/const/app_colors.dart';
 import 'package:e_sankalp/src/const/app_font.dart';
+import 'package:e_sankalp/src/models/donaton_list_model.dart';
 import 'package:e_sankalp/src/view/home_view/donation_amount.dart';
 import 'package:e_sankalp/src/view/home_view/notification_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class DonateNowDetailsScreen extends StatefulWidget {
-  DonateNowDetailsScreen({super.key});
+  DonateData donateData;
+  DonateNowDetailsScreen({super.key, required this.donateData});
 
   @override
   State<DonateNowDetailsScreen> createState() => _DonateNowDetailsScreenState();
@@ -49,7 +51,7 @@ class _DonateNowDetailsScreenState extends State<DonateNowDetailsScreen> {
         child: ListView(
           children: [
             Text(
-              "800-year-old Shiva, Perumal temples in Perambalur crying for attention.",
+              widget.donateData.donateTitle,
               style: primaryFont.copyWith(
                   fontSize: 19, fontWeight: FontWeight.w500),
             ),
@@ -57,18 +59,21 @@ class _DonateNowDetailsScreenState extends State<DonateNowDetailsScreen> {
               height: 10,
             ),
             Text(
-              "Residents and youths have filed petitions with the District Collector and the Hindu Religious and Charitable Endowments Department (HR & CE) demanding renovation of the temples",
+              widget.donateData.donateDescription.split(",").first,
               style: primaryFont.copyWith(fontSize: 13),
             ),
             const SizedBox(
               height: 10,
             ),
-            Image.asset("assets/images/Perambalur-temple1-EPS (1).png"),
+            Container(
+                height: 200,
+                width: size.width,
+                child: Image.network(widget.donateData.image)),
             const SizedBox(
               height: 10,
             ),
             Text(
-              "PERAMBALUR: The 800-year-old Shiva and Perumal temples in Maruvathur village of Kunnam Taluk have been left unmaintained for several years with no basic facilities such as drinking water, compound walls and walkway, among others. Due to this, footfall has been on the decline. More than 120 acres of the land belong to the temples.",
+              widget.donateData.donateDescription.split(",").last,
               style: primaryFont.copyWith(fontSize: 13),
             ),
             const SizedBox(
@@ -97,7 +102,7 @@ class _DonateNowDetailsScreenState extends State<DonateNowDetailsScreen> {
                             ),
                           ),
                           Text(
-                            "₹7,30,000",
+                            "₹${widget.donateData.raisedOfGoal}",
                             style: primaryFont.copyWith(
                               color: Colors.white,
                               fontSize: 15,
@@ -132,7 +137,7 @@ class _DonateNowDetailsScreenState extends State<DonateNowDetailsScreen> {
                             ),
                           ),
                           Text(
-                            "₹5,30,000",
+                            "₹${widget.donateData.archievedGoal}",
                             style: primaryFont.copyWith(
                               color: Colors.white,
                               fontSize: 15,
@@ -288,7 +293,9 @@ class _DonateNowDetailsScreenState extends State<DonateNowDetailsScreen> {
         padding: const EdgeInsets.only(left: 10, right: 10, bottom: 15),
         child: InkWell(
           onTap: () {
-            Get.to(() => DonationAmount());
+            Get.to(() => DonationAmount(
+              donateData: widget.donateData,
+            ));
           },
           child: Container(
               height: 55,

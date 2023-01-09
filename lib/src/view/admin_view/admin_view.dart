@@ -37,7 +37,7 @@ class _AdminViewState extends State<AdminView> {
             color: Colors.black,
           ),
           title: Text(
-            "Admin",
+            "Sankalp",
             style: primaryFont.copyWith(
                 color: Colors.black, fontWeight: FontWeight.w600),
           ),

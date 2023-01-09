@@ -327,7 +327,7 @@ class _HomePageViewState extends State<HomePageView> {
                           children: [
                             SvgPicture.asset("assets/images/Admin.svg"),
                             Text(
-                              "Admin",
+                              "Sankalp",
                               style: primaryFont.copyWith(fontSize: 12),
                             )
                           ],

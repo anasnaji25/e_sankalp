@@ -48,5 +48,12 @@ abstract class BaseApiService {
 
 
 String adminBookingList = "https://batechnology.in/sankalpweb/public/api/admin_booking_list";
+
+
+
+String donationsListURL = "https://batechnology.in/sankalpweb/public/api/donate";
+
+String donateURL = "https://batechnology.in/sankalpweb/public/api/donor";
+
       
-}
+     }

@@ -57,7 +57,7 @@ class _LoginViewState extends State<LoginView> {
                           height: 10,
                         ),
                         Text(
-                          "Login",
+                          "Login".tr,
                           style: primaryFont.copyWith(
                               color: Colors.black,
                               fontWeight: FontWeight.w600,
