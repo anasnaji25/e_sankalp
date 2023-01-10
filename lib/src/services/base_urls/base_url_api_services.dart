@@ -46,14 +46,29 @@ abstract class BaseApiService {
   String listMyTempleBookingURL =
       "https://batechnology.in/sankalpweb/public/api/booking_list";
 
+  String adminBookingList =
+      "https://batechnology.in/sankalpweb/public/api/admin_booking_list";
 
-String adminBookingList = "https://batechnology.in/sankalpweb/public/api/admin_booking_list";
+  String donationsListURL =
+      "https://batechnology.in/sankalpweb/public/api/donate";
 
+  String donateURL = "https://batechnology.in/sankalpweb/public/api/donor";
 
+  String donorsListURL =
+      "https://batechnology.in/sankalpweb/public/api/donor_list";
 
-String donationsListURL = "https://batechnology.in/sankalpweb/public/api/donate";
+  String templeSearchURL =
+      "https://batechnology.in/sankalpweb/public/api/temple_search";
 
-String donateURL = "https://batechnology.in/sankalpweb/public/api/donor";
+  String astrologyURL =
+      "https://batechnology.in/sankalpweb/public/api/astrology";
 
-      
-     }
+  String astrologyListURL =
+      "https://batechnology.in/sankalpweb/public/api/astrology_list";
+
+  String astrologyChartPostURL =
+      "https://batechnology.in/sankalpweb/public/api/astrology_chart";
+
+  String astrologyChartGetURL =
+      "https://batechnology.in/sankalpweb/public/api/astrologychart_list";
+}

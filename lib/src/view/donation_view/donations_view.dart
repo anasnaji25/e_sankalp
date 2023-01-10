@@ -93,175 +93,185 @@ class _DonationsViewState extends State<DonationsView> {
         return ListView.builder(
           itemCount: donationsController.donationsList.length,
           itemBuilder: (context, index) {
-            return Column(
-              children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        height: 100,
-                        width: 120,
-                        child: Image.network(
-                          donationsController.donationsList[index].image,
-                          fit: BoxFit.cover,
+            return InkWell(
+              onTap: (){
+                 Get.to(() => DonateNowDetailsScreen(
+                      donateData: donationsController.donationsList[index],
+                    ));
+              },
+              child: Column(
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          height: 100,
+                          width: 120,
+                          child: Image.network(
+                            donationsController.donationsList[index].image,
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 5),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            height: 100,
-                            width: size.width / 2,
-                            child: Text(
-                                donationsController
-                                    .donationsList[index].donateTitle,
-                                style: primaryFont.copyWith(fontSize: 15)),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Row(
-                            children: [
-                              Container(
-                                height: 40,
-                                width: 80,
-                                decoration: BoxDecoration(
-                                    color: primaryColor,
-                                    borderRadius: BorderRadius.circular(7)),
-                                child: Padding(
-                                  padding:
-                                      const EdgeInsets.only(left: 5, top: 5),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "Raised of Goal",
-                                        style: primaryFont.copyWith(
-                                          color: Colors.white,
-                                          fontSize: 10,
-                                        ),
-                                      ),
-                                      Text(
-                                        "₹${donationsController.donationsList[index].raisedOfGoal}",
-                                        style: primaryFont.copyWith(
-                                          color: Colors.white,
-                                          fontSize: 12,
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 5),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              height: 60,
+                              width: size.width / 2,
+                              child: Text(
+                                  donationsController
+                                      .donationsList[index].donateTitle,
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 3,
+                                  style: primaryFont.copyWith(fontSize: 15),
                               ),
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              Container(
-                                height: 40,
-                                width: 80,
-                                decoration: BoxDecoration(
-                                    color: primaryColor,
-                                    borderRadius: BorderRadius.circular(7)),
-                                child: Padding(
-                                  padding:
-                                      const EdgeInsets.only(left: 5, top: 5),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "Archived",
-                                        style: primaryFont.copyWith(
-                                          color: Colors.white,
-                                          fontSize: 10,
-                                        ),
-                                      ),
-                                      Text(
-                                        "₹${donationsController.donationsList[index].archievedGoal}",
-                                        style: primaryFont.copyWith(
-                                          color: Colors.white,
-                                          fontSize: 12,
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              InkWell(
-                                onTap: () {
-                                  Get.to(() => DonateNowDetailsScreen(
-                                        donateData: donationsController
-                                            .donationsList[index],
-                                      ));
-                                },
-                                child: Container(
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Row(
+                              children: [
+                                Container(
                                   height: 40,
                                   width: 80,
                                   decoration: BoxDecoration(
-                                      color: Colors.cyan,
-                                      borderRadius: BorderRadius.circular(10)),
+                                      color: primaryColor,
+                                      borderRadius: BorderRadius.circular(7)),
                                   child: Padding(
                                     padding:
                                         const EdgeInsets.only(left: 5, top: 5),
-                                    child: Row(
+                                    child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        const Padding(
-                                          padding: EdgeInsets.only(top: 2),
-                                          child: Icon(
-                                            Icons.favorite,
+                                        Text(
+                                          "Raised of Goal",
+                                          style: primaryFont.copyWith(
                                             color: Colors.white,
-                                            size: 20,
+                                            fontSize: 10,
                                           ),
                                         ),
-                                        const SizedBox(
-                                          width: 5,
-                                        ),
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              "Donate",
-                                              style: primaryFont.copyWith(
-                                                color: Colors.white,
-                                                fontSize: 10,
-                                              ),
-                                            ),
-                                            Text(
-                                              "Now",
-                                              style: primaryFont.copyWith(
-                                                color: Colors.white,
-                                                fontSize: 10,
-                                              ),
-                                            )
-                                          ],
-                                        ),
+                                        Text(
+                                          "₹${donationsController.donationsList[index].raisedOfGoal}",
+                                          style: primaryFont.copyWith(
+                                            color: Colors.white,
+                                            fontSize: 12,
+                                          ),
+                                        )
                                       ],
                                     ),
                                   ),
                                 ),
-                              )
-                            ],
-                          )
-                        ],
+                                const SizedBox(
+                                  width: 5,
+                                ),
+                                Container(
+                                  height: 40,
+                                  width: 80,
+                                  decoration: BoxDecoration(
+                                      color: primaryColor,
+                                      borderRadius: BorderRadius.circular(7)),
+                                  child: Padding(
+                                    padding:
+                                        const EdgeInsets.only(left: 5, top: 5),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "Archived",
+                                          style: primaryFont.copyWith(
+                                            color: Colors.white,
+                                            fontSize: 10,
+                                          ),
+                                        ),
+                                        Text(
+                                          "₹${donationsController.donationsList[index].archievedGoal}",
+                                          style: primaryFont.copyWith(
+                                            color: Colors.white,
+                                            fontSize: 12,
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 5,
+                                ),
+                                InkWell(
+                                  onTap: () {
+                                    Get.to(() => DonateNowDetailsScreen(
+                                          donateData: donationsController
+                                              .donationsList[index],
+                                        ));
+                                  },
+                                  child: Container(
+                                    height: 40,
+                                    width: 80,
+                                    decoration: BoxDecoration(
+                                        color: Colors.cyan,
+                                        borderRadius: BorderRadius.circular(10)),
+                                    child: Padding(
+                                      padding:
+                                          const EdgeInsets.only(left: 5, top: 5),
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          const Padding(
+                                            padding: EdgeInsets.only(top: 2),
+                                            child: Icon(
+                                              Icons.favorite,
+                                              color: Colors.white,
+                                              size: 20,
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            width: 5,
+                                          ),
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                "Donate",
+                                                style: primaryFont.copyWith(
+                                                  color: Colors.white,
+                                                  fontSize: 10,
+                                                ),
+                                              ),
+                                              Text(
+                                                "Now",
+                                                style: primaryFont.copyWith(
+                                                  color: Colors.white,
+                                                  fontSize: 10,
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              ],
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                const Divider(
-                  thickness: 1.5,
-                ),
-              ],
+                    ],
+                  ),
+                  const Divider(
+                    thickness: 1.5,
+                  ),
+                ],
+              ),
             );
           },
         );

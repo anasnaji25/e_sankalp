@@ -474,7 +474,14 @@ class _DonationAmountState extends State<DonationAmount> {
                               left: 15, right: 15, top: 20),
                           child: InkWell(
                             onTap: () {
-                             
+                              if (addressController.text.isNotEmpty &&
+                                  customAmountTextController.text.isNotEmpty &&
+                                  countryController.text.isNotEmpty &&
+                                  emailIdController.text.isNotEmpty &&
+                                  nameController.text.isNotEmpty &&
+                                  phoneNumberController.text.isNotEmpty &&
+                                  pinCodeController.text.isNotEmpty &&
+                                  stateController.text.isNotEmpty) {
                                 DonationModel donationModel = DonationModel(
                                   address: addressController.text,
                                   amount: customAmountTextController.text,
@@ -488,7 +495,24 @@ class _DonationAmountState extends State<DonationAmount> {
                                   id: widget.donateData.id.toString(),
                                 );
                                 donationController.donateNow(donationModel);
-                             
+                              } else {
+                                Get.snackbar(
+                                  "Fill all the fields",
+                                  "",
+                                  icon: const Icon(
+                                      Icons.check_circle_outline_outlined,
+                                      color: Colors.white),
+                                  snackPosition: SnackPosition.BOTTOM,
+                                  backgroundColor: Colors.red,
+                                  borderRadius: 20,
+                                  margin: const EdgeInsets.all(15),
+                                  colorText: Colors.white,
+                                  duration: const Duration(seconds: 3),
+                                  isDismissible: true,
+                                  dismissDirection: DismissDirection.horizontal,
+                                  forwardAnimationCurve: Curves.easeOutBack,
+                                );
+                              }
                             },
                             child: Container(
                               height: 30,

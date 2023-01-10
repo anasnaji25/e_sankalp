@@ -6,6 +6,7 @@ import 'package:e_sankalp/src/const/app_font.dart';
 import 'package:e_sankalp/src/controllers/auth_controller.dart';
 import 'package:e_sankalp/src/models/admin_register_model.dart';
 import 'package:e_sankalp/src/models/plannets_model.dart';
+import 'package:e_sankalp/src/models/post_astro_model.dart';
 import 'package:e_sankalp/src/models/register_model.dart';
 import 'package:e_sankalp/src/view/auth_views/loading_screen.dart';
 import 'package:e_sankalp/src/view/auth_views/login_screen_view.dart';
@@ -20,7 +21,8 @@ import 'package:otp_text_field/style.dart';
 
 class SignupAdminView extends StatefulWidget {
   RegisterModel registerModel;
-  SignupAdminView({super.key, required this.registerModel});
+  PostAstroModel postAstroModel;
+  SignupAdminView({super.key, required this.registerModel,required this.postAstroModel});
 
   @override
   State<SignupAdminView> createState() => _SignupAdminViewState();
@@ -1265,6 +1267,7 @@ class _SignupAdminViewState extends State<SignupAdminView> {
 
                                   authController.registerAdmin(
                                       adminRegisterModel: adminRegisterModel,
+                                      postAstroModel: widget.postAstroModel,
                                       registerModel: widget.registerModel);
                                 } else {
                                   Get.snackbar(

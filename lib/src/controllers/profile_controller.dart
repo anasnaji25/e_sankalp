@@ -1,9 +1,15 @@
 import 'package:e_sankalp/src/controllers/auth_controller.dart';
 import 'package:e_sankalp/src/controllers/temple_controller.dart';
 import 'package:e_sankalp/src/models/add_family_member_api.dart';
+import 'package:e_sankalp/src/models/astrology_chart_model.dart';
+import 'package:e_sankalp/src/models/astrology_model.dart';
 import 'package:e_sankalp/src/models/gat_family_members_model.dart';
+import 'package:e_sankalp/src/models/post_astro_model.dart';
 import 'package:e_sankalp/src/models/profile_models.dart';
 import 'package:e_sankalp/src/models/support_model.dart';
+import 'package:e_sankalp/src/services/network/astrology_api_services/get_astrology_api_services.dart';
+import 'package:e_sankalp/src/services/network/astrology_api_services/get_astrology_chart_api.dart';
+import 'package:e_sankalp/src/services/network/astrology_api_services/post_astrology_api_services.dart';
 import 'package:e_sankalp/src/services/network/profile_api_services/add_family_memeber_api_services.dart';
 import 'package:e_sankalp/src/services/network/profile_api_services/get_family_members.dart';
 import 'package:e_sankalp/src/services/network/profile_api_services/get_profile_api_services.dart';
@@ -23,11 +29,18 @@ class ProfileController extends GetxController {
 
   SupportServicesApi supportServicesApi = SupportServicesApi();
 
-  
+  GetAstrologyServicesApi getAstrologyServicesApi = GetAstrologyServicesApi();
+
+  GetAstrologyChartServicesApi getAstrologyChartApi =
+      GetAstrologyChartServicesApi();
 
   List<ProfileUser> profileData = [];
 
   List<Member> membersList = [];
+
+  List<Astrology?> astrologyList = [];
+
+  List<dynamic?> chartList = [];
 
   getProfile() async {
     profileData.clear();
@@ -156,5 +169,66 @@ class ProfileController extends GetxController {
         forwardAnimationCurve: Curves.easeOutBack,
       );
     }
+  }
+
+  getAstrologyDetails() async {
+    astrologyList.clear();
+    dio.Response<dynamic> response =
+        await getAstrologyServicesApi.getAstrologys();
+
+    if (response.statusCode == 200) {
+      AstrologyModel astrologyModel = AstrologyModel.fromJson(response.data);
+
+      astrologyList.add(astrologyModel.astrology);
+      update();
+    }
+  }
+
+  getAstrologyChartDetails() async {
+    chartList.clear();
+    dio.Response<dynamic> response =
+        await getAstrologyChartApi.getAstrologysChart();
+
+    if (response.statusCode == 200) {
+      // AstrologyChartModel astrologyChartModel =
+      //     AstrologyChartModel.fromJson(response.data);
+      print("------------------------svggggg-----------");
+
+      chartList.add(response.data['svg'].toString());
+      update();
+    }
+  }
+
+  String getZodiacSign(String sign) {
+    String svgImage = "";
+    print("--------------------");
+    print(sign);
+    print("விருச்சகம்");
+    if (sign == "விருச்சகம்") {
+      svgImage = "assets/icons/Scorpio-01.svg";
+    } else if (sign == "மேஷம்") {
+      svgImage = "assets/icons/aries-01.svg";
+    } else if (sign == "ரிஷபம்") {
+      svgImage = "assets/icons/Taurus-01.svg";
+    } else if (sign == "மிதுனம்") {
+      svgImage = "assets/icons/Gemini-01.svg";
+    } else if (sign == "கடகம்") {
+      svgImage = "assets/icons/Cancer-01.svg";
+    } else if (sign == "சிம்மம்") {
+      svgImage = "assets/icons/leo-01.svg";
+    } else if (sign == "கன்னி") {
+      svgImage = "assets/icons/Virgo-01.svg";
+    } else if (sign == "துலாம்") {
+      svgImage = "assets/icons/Libra-01.svg";
+    } else if (sign == "தனுசு") {
+      svgImage = "assets/icons/Sagittarius-01.svg";
+    } else if (sign == "மகரம்") {
+      svgImage = "assets/icons/capricorn-01.svg";
+    } else if (sign == "கும்பம்") {
+      svgImage = "assets/icons/Aquarius-01.svg";
+    } else if (sign == "மீனம்") {
+      svgImage = "assets/icons/pisces-01.svg";
+    }
+    return svgImage;
   }
 }

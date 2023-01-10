@@ -2,6 +2,7 @@ import 'package:date_format/date_format.dart';
 import 'package:e_sankalp/src/const/app_colors.dart';
 import 'package:e_sankalp/src/const/app_font.dart';
 import 'package:e_sankalp/src/controllers/auth_controller.dart';
+import 'package:e_sankalp/src/models/post_astro_model.dart';
 import 'package:e_sankalp/src/models/register_model.dart';
 import 'package:e_sankalp/src/view/auth_views/admin_signup_info_view.dart';
 import 'package:e_sankalp/src/view/auth_views/loading_screen.dart';
@@ -10,6 +11,7 @@ import 'package:e_sankalp/src/view/auth_views/otp_validation_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_countdown_timer/current_remaining_time.dart';
 import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -222,9 +224,11 @@ class _SignUpViewState extends State<SignUpView> {
                                       mobileNumController.text.length == 10) {
                                     authController
                                         .verifyMobile(mobileNumController.text);
-                                    _showOTPDialouge(context, mobileNumController.text);
+                                    _showOTPDialouge(
+                                        context, mobileNumController.text);
                                   } else {
-                                    Get.snackbar("Enter a valid Phone number", "",
+                                    Get.snackbar(
+                                        "Enter a valid Phone number", "",
                                         colorText: Colors.white,
                                         backgroundColor: Colors.red,
                                         snackPosition: SnackPosition.BOTTOM);
@@ -377,7 +381,7 @@ class _SignUpViewState extends State<SignUpView> {
                           Padding(
                             padding: const EdgeInsets.only(left: 15, right: 15),
                             child: InkWell(
-                              onTap: () {
+                              onTap: () async {
                                 // if (isAdmin) {
                                 //   Get.off(() => SignupAdminView());
                                 // } else {
@@ -402,7 +406,30 @@ class _SignUpViewState extends State<SignUpView> {
                                           place: placeController.text,
                                           role: "Admin");
 
-                                      Get.off(() => SignupAdminView(registerModel: registerModel,));
+                                           List<Location> locations =
+                                          await locationFromAddress(
+                                              placeController.text);
+
+                                      PostAstroModel postAstroModel =
+                                          PostAstroModel(
+                                              day: date.day.toString(),
+                                              month: date.month.toString(),
+                                              year: date.year.toString(),
+                                              hour: time.hour.toString(),
+                                              min: time.minute.toString(),
+                                              tzone: "5.5",
+                                              lat:locations.isEmpty  ? "13.0827": locations.first.latitude
+                                                  .toString(),
+                                              long: locations.isEmpty
+                                                  ? "80.2707"
+                                                  :  locations.first.longitude
+                                                  .toString(),
+                                              language: 'ta');
+
+                                      Get.off(() => SignupAdminView(
+                                            registerModel: registerModel,
+                                            postAstroModel: postAstroModel,
+                                          ));
                                     } else {
                                       RegisterModel registerModel = RegisterModel(
                                           name: nameController.text,
@@ -413,8 +440,30 @@ class _SignUpViewState extends State<SignUpView> {
                                           place: placeController.text,
                                           role: "Customer");
 
+                                      List<Location> locations =
+                                          await locationFromAddress(
+                                              placeController.text);
+
+                                      PostAstroModel postAstroModel =
+                                          PostAstroModel(
+                                              day: date.day.toString(),
+                                              month: date.month.toString(),
+                                              year: date.year.toString(),
+                                              hour: time.hour.toString(),
+                                              min: time.minute.toString(),
+                                              tzone: "5.5",
+                                             lat: locations.isEmpty
+                                                  ? "13.0827"
+                                                  : locations.first.latitude
+                                                      .toString(),
+                                              long: locations.isEmpty
+                                                  ? "80.2707"
+                                                  : locations.first.longitude
+                                                      .toString(),
+                                              language: 'ta');
+
                                       authController
-                                          .registerUser(registerModel);
+                                          .registerUser(registerModel, postAstroModel);
                                     }
                                   } else {
                                     Get.snackbar(

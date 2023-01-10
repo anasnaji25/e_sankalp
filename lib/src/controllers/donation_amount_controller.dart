@@ -1,6 +1,9 @@
 import 'package:e_sankalp/src/models/donate_model.dart';
 import 'package:e_sankalp/src/models/donaton_list_model.dart';
+import 'package:e_sankalp/src/models/donors_list_model.dart';
 import 'package:e_sankalp/src/services/network/donations_api_services/donate_api_services.dart';
+import 'package:e_sankalp/src/services/network/donations_api_services/get_donors_list_api.dart';
+import 'package:e_sankalp/src/view/donation_view/donations_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -12,12 +15,15 @@ class DonationController extends GetxController {
 
   List<DonateData> donationsList = [];
 
+  List<Donor?>? supportersList = [];
+
   GetDonationsListAPIServices getDonationsListAPIServices =
       GetDonationsListAPIServices();
 
   DonateServicesApi donateServicesApi = DonateServicesApi();
 
-
+  GetSupportersServicesApi getSupportersServicesApi =
+      GetSupportersServicesApi();
 
   getDonationsList() async {
     dio.Response<dynamic> response =
@@ -31,13 +37,12 @@ class DonationController extends GetxController {
     }
   }
 
+  donateNow(DonationModel donationModel) async {
+    dio.Response<dynamic> response =
+        await donateServicesApi.donateApi(donationModel);
 
-  donateNow(DonationModel donationModel) async{
-    dio.Response<dynamic> response = await donateServicesApi.donateApi(donationModel);
-
-
-      if(response.statusCode == 200){
-         Get.snackbar(
+    if (response.statusCode == 200) {
+      Get.snackbar(
         "Donated",
         "",
         icon: const Icon(Icons.check_circle_outline_outlined,
@@ -52,10 +57,19 @@ class DonationController extends GetxController {
         dismissDirection: DismissDirection.horizontal,
         forwardAnimationCurve: Curves.easeOutBack,
       );
-      Get.back();
-      }
+      Get.off(() => DonationsView());
+    }
   }
 
+  getSupporters(String id) async {
+    dio.Response<dynamic> response =
+        await getSupportersServicesApi.getSupporters(id);
 
-
+    if (response.statusCode == 200) {
+      SupportersLIstModel supportersLIstModel =
+          SupportersLIstModel.fromJson(response.data);
+      supportersList = supportersLIstModel.donor;
+      update();
+    }
+  }
 }

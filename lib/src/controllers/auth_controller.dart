@@ -1,7 +1,10 @@
 import 'package:e_sankalp/src/const/auth_helpers.dart';
 import 'package:e_sankalp/src/models/admin_register_model.dart';
 import 'package:e_sankalp/src/models/plannets_model.dart';
+import 'package:e_sankalp/src/models/post_astro_model.dart';
 import 'package:e_sankalp/src/models/register_model.dart';
+import 'package:e_sankalp/src/services/network/astrology_api_services/post_astrology_api_services.dart';
+import 'package:e_sankalp/src/services/network/astrology_api_services/post_astrology_chart_api.dart';
 import 'package:e_sankalp/src/services/network/auth_api_services/admin_register_api_services.dart';
 import 'package:e_sankalp/src/services/network/auth_api_services/get_planets_api_services.dart';
 import 'package:e_sankalp/src/services/network/auth_api_services/login_apis/verify_mobile_login_api.dart';
@@ -48,6 +51,11 @@ class AuthController extends GetxController {
   VerifyMobileLoginApi verifyMobileLoginApi = VerifyMobileLoginApi();
   VerifyOTPLoginApi verifyOTPLoginApi = VerifyOTPLoginApi();
 
+  PostAstrologyServicesApi postAstrologyApi = PostAstrologyServicesApi();
+
+  PostAstrologyChartServicesApi postAstrologyChartServicesApi =
+      PostAstrologyChartServicesApi();
+
   List<PlanetsModel> plantsList = [];
 
   verifyMobile(String mobile) async {
@@ -86,13 +94,16 @@ class AuthController extends GetxController {
     }
   }
 
-  registerUser(RegisterModel registerModel) async {
+  registerUser(
+      RegisterModel registerModel, PostAstroModel postAstroModel) async {
     final prefs = await SharedPreferences.getInstance();
 
     dio.Response<dynamic> response = await registerApi.register(registerModel);
 
     if (response.statusCode == 200) {
       await prefs.setString(authToken, response.data["token"]);
+      postAstroDetails(postAstroModel);
+      postAstroChartDetails(postAstroModel);
       isAdmin(false);
       Get.offAll(() => const LoadingScreenView());
       Get.snackbar("Successfully Registered", "",
@@ -117,17 +128,20 @@ class AuthController extends GetxController {
 
   registerAdmin(
       {required AdminRegisterModel adminRegisterModel,
+      required PostAstroModel postAstroModel,
       required RegisterModel registerModel}) async {
     final prefs = await SharedPreferences.getInstance();
 
     dio.Response<dynamic> response = await registerApi.register(registerModel);
 
     if (response.statusCode == 200) {
-      dio.Response<dynamic> adminresponse =
-          await adminRegisterServicesApi.adminRegisterApi(adminRegisterModel,response.data["token"]);
+      dio.Response<dynamic> adminresponse = await adminRegisterServicesApi
+          .adminRegisterApi(adminRegisterModel, response.data["token"]);
 
       if (adminresponse.statusCode == 200) {
         await prefs.setString(authToken, response.data["token"]);
+        postAstroDetails(postAstroModel);
+        postAstroChartDetails(postAstroModel);
         isAdmin(true);
         Get.offAll(() => const LoadingScreenView());
         Get.snackbar("Successfully Registered", "",
@@ -155,13 +169,13 @@ class AuthController extends GetxController {
       Get.snackbar(
         "Invalid User",
         "User not found",
-        icon: Icon(Icons.error_outline, color: Colors.white),
+        icon: const Icon(Icons.error_outline, color: Colors.white),
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: Colors.red,
         borderRadius: 20,
-        margin: EdgeInsets.all(15),
+        margin: const EdgeInsets.all(15),
         colorText: Colors.white,
-        duration: Duration(seconds: 3),
+        duration: const Duration(seconds: 3),
         isDismissible: true,
         dismissDirection: DismissDirection.horizontal,
         forwardAnimationCurve: Curves.easeOutBack,
@@ -169,12 +183,12 @@ class AuthController extends GetxController {
     }
   }
 
-   resendOtp(String mobilenumber) async {
+  resendOtp(String mobilenumber) async {
     dio.Response<dynamic> response =
         await verifyMobileLoginApi.verifyMobileLogin(mobilenumber);
 
     if (response.statusCode == 200) {
-     Get.snackbar(
+      Get.snackbar(
         "OTP Sended",
         "",
         icon: Icon(Icons.check_circle_outline_outlined, color: Colors.white),
@@ -212,7 +226,7 @@ class AuthController extends GetxController {
     final prefs = await SharedPreferences.getInstance();
 
     if (response.statusCode == 200) {
-     await prefs.setString(authToken, response.data["token"]);
+      await prefs.setString(authToken, response.data["token"]);
       Get.off(() => const LoadingScreenView());
     } else {
       Get.snackbar(
@@ -230,6 +244,20 @@ class AuthController extends GetxController {
         forwardAnimationCurve: Curves.easeOutBack,
       );
     }
+  }
+
+  postAstroDetails(PostAstroModel postAstroModel) async {
+    dio.Response<dynamic> response =
+        await postAstrologyApi.postAstrology(postAstroModel);
+
+    if (response.statusCode == 200) {}
+  }
+
+  postAstroChartDetails(PostAstroModel postAstroModel) async {
+    dio.Response<dynamic> response =
+        await postAstrologyChartServicesApi.postAstrologyChart(postAstroModel);
+
+    if (response.statusCode == 200) {}
   }
 
   logout() async {
